@@ -3,7 +3,7 @@ package team5.calendarproject;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-//Android Studio Comment
+//Android Studio Comment time.
 public class MainPage extends AppCompatActivity {
 
     @Override
