@@ -6,7 +6,9 @@ import java.util.ArrayList;
  * Created by edward on 3/25/16.
  */
 public class CalendarEvent extends Event {
-    public ArrayList<String> participants;
+    private ArrayList<String> participants;
+    private String location;
+    private String endTime;
     private Repeating r;
 
     public CalendarEvent(int time, int date, String title, String color, String alarm,
