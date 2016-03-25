@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class CalendarEvent extends Event {
     public ArrayList<String> participants;
+    private Repeating r;
 
     public CalendarEvent(int time, int date, String title, String color, String alarm,
                          ArrayList<String> participants) {
