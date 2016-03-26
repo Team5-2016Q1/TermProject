@@ -9,10 +9,10 @@ public class CalendarEvent extends Event {
     private ArrayList<String> participants;
     private String location;
     private String endTime;
-    private Repeating r;
+    private Repeating repeats;
 
     public CalendarEvent(int time, int date, String title, String color, String alarm,
-                         ArrayList<String> participants) {
+                         ArrayList<String> participants, String location, int r) {
         super(time, date, title, color, alarm);
         this.participants = participants;
     }
