@@ -3,7 +3,7 @@ package team5.calendarproject;
 /**
  * Created by edward on 3/25/16.
  */
-public class Event  {
+abstract class Event  {
     private int time;
     private int date;
     private String title;
