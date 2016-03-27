@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">CalendarProject</string>
+    <string name="app_name">Team 5 Calendar!</string>
+    <string name="add_event_button">Add Event</string>
+    <string name="current_month_main">Month Name</string>
 </resources>
