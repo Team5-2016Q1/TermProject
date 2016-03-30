@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddEventController"></activity>
+        <activity android:name=".AddEventController" />
+        <activity android:name=".EventViewController"></activity>
     </application>
 
 </manifest>
