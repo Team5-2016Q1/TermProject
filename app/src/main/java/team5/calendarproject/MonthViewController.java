@@ -4,10 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
+
+    private Button MontlyAddEventButton = (Button) findViewById(R.id.monthly_add_event_button);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +23,7 @@ public class MonthViewController extends AppCompatActivity {
     LinearLayout week_3 = (LinearLayout) findViewById(R.id.monthly_week_3);
     View week_4 = (View) findViewById(R.id.monthly_week_4);
     LinearLayout week_5 = (LinearLayout) findViewById(R.id.monthly_week_5);
+
+
 
 }
