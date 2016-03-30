@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/current_month_main"
+        android:text="@string/current_month_name"
         android:id="@+id/monthly_view_month_name"
         android:layout_gravity="center_horizontal|top"
         android:textSize="27sp"
