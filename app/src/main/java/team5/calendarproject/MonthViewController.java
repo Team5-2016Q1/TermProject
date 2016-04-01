@@ -22,8 +22,6 @@ public class MonthViewController extends AppCompatActivity {
         setContentView(R.layout.month_view);
         setupMonth();
 
-       btnAdd = (Button)findViewById(R.id.monthly_add_event_button);
-       AddEvent();
     }
 
 
@@ -56,21 +54,10 @@ public class MonthViewController extends AppCompatActivity {
         }
 
     }
-    //ADD EVENT
-    /*public void onClickAdd(View view){
-        Intent i = new Intent(this,AddEventController.class);
-        startActivity(i);
-    }*/
 
     //ADD EVENT
-   private void AddEvent() {
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent back = new Intent(getApplicationContext(), AddEventController.class);
-                startActivity(back);
-            }
-        });
+    public void goToAddEventView(View view){
+        startActivity(new Intent(this, AddEventController.class));
     }
 
 }
