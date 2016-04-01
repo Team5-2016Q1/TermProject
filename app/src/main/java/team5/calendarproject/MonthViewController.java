@@ -1,16 +1,18 @@
 package team5.calendarproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-
+import android.widget.Button;
 import java.util.Date;
 
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
+    Button btnAdd;
 
-    //private Button MontlyAddEventButton = (Button) findViewById(R.id.monthly_add_event_button);
+    //private Button MonthlyAddEventButton = (Button) findViewById(R.id.monthly_add_event_button);
 
 
 
@@ -19,7 +21,11 @@ public class MonthViewController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.month_view);
         setupMonth();
+
+       btnAdd = (Button)findViewById(R.id.monthly_add_event_button);
+       AddEvent();
     }
+
 
     private void setupMonth() {
         Date today = new Date();
@@ -49,6 +55,22 @@ public class MonthViewController extends AppCompatActivity {
             }
         }
 
+    }
+    //ADD EVENT
+    /*public void onClickAdd(View view){
+        Intent i = new Intent(this,AddEventController.class);
+        startActivity(i);
+    }*/
+
+    //ADD EVENT
+   private void AddEvent() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back = new Intent(getApplicationContext(), AddEventController.class);
+                startActivity(back);
+            }
+        });
     }
 
 }
