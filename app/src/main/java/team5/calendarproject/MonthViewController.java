@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
+
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
@@ -26,8 +29,8 @@ public class MonthViewController extends AppCompatActivity {
 
 
     private void setupMonth() {
-        Date today = new Date();
-        int totalDaysInMonth = 30;
+
+        int totalDaysInMonth = CalendarDates.values()[Calendar.MONTH].getNumberOfDays(Calendar.YEAR);
         int setupDayNumber = 1;
 
         int dayIDs[] = {R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
@@ -40,7 +43,8 @@ public class MonthViewController extends AppCompatActivity {
 
         View workingDay;
         TextView monthName = (TextView)findViewById(R.id.monthly_view_month_name);
-        monthName.setText("April");
+
+        monthName.setText(CalendarDates.values()[Calendar.MONTH].toString());
 
         for(int weekNumber = 0; weekNumber < 5; weekNumber++) {
             for(int dayNumber = 0; dayNumber < 7; dayNumber++) {

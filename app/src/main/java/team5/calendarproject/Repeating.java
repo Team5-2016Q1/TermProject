@@ -11,7 +11,7 @@ public enum Repeating {
     private Date date;
     private boolean[] days = new boolean[7];
 
-    Repeating() {
+    private Repeating() {
         this.date = new Date();
         for(boolean b : days) {
             b = false;

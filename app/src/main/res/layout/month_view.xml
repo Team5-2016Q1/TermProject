@@ -133,6 +133,6 @@
         android:layout_alignParentEnd="true"
         android:background="#0356bb"
         android:textColor="#ffffff"
-        android:onClick="onClickAdd" />
+        android:onClick="goToAddEventView" />
 
 </RelativeLayout>
