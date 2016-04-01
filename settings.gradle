@@ -1,2 +1,1 @@
-include ':app'
-include ':CalendarProject'
+include ':CalendarProject', ':app'

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -13,6 +14,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class AddEventController extends AppCompatActivity {
     Button btnCreate, btnCancel;
+    EditText etEventTitle, etEventDate, etEventLocation, etEventEndTime, etEventStartTime,
+            etEmail1, etEmail2;
 
 
     /**
@@ -31,6 +34,14 @@ public class AddEventController extends AppCompatActivity {
 
         btnCancel = (Button)findViewById(R.id.cancelButton);
         btnCreate = (Button)findViewById(R.id.createButton);
+        etEventTitle = (EditText) findViewById(R.id.et_EventTilte);
+        etEventDate = (EditText) findViewById(R.id.et_EventDate);
+        etEventLocation = (EditText) findViewById(R.id.et_Location);
+        etEventStartTime = (EditText) findViewById(R.id.et_EventStartTime);
+        etEventEndTime = (EditText) findViewById(R.id.et_EventEndTime);
+        etEmail1 = (EditText) findViewById(R.id.et_email1);
+        etEmail2 = (EditText) findViewById(R.id.et_email2);
+
         Cancel();
     }
 

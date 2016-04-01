@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:hint="Event Title"
         android:inputType="text"
-        android:id="@+id/editText"
+        android:id="@+id/et_EventTilte"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:text="Event Title" />
@@ -40,8 +40,8 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
+        android:id="@+id/et_EventDate"
+        android:layout_below="@+id/et_EventTilte"
         android:layout_alignParentStart="true"
         android:text="Event Date" />
 
@@ -51,9 +51,9 @@
         android:hint="Location"
         android:inputType="textPostalAddress"
         android:ems="10"
-        android:id="@+id/editText5"
+        android:id="@+id/et_Location"
         android:text="Location"
-        android:layout_below="@+id/editText4"
+        android:layout_below="@+id/et_EventEndTime"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -62,9 +62,9 @@
         android:hint="End Time"
         android:inputType="time"
         android:ems="10"
-        android:id="@+id/editText4"
+        android:id="@+id/et_EventEndTime"
         android:text="End Time"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/et_EventStartTime"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -73,9 +73,9 @@
         android:hint="Start Time"
         android:inputType="time"
         android:ems="10"
-        android:id="@+id/editText6"
+        android:id="@+id/et_EventStartTime"
         android:text="Start Time"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/et_EventDate"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -83,8 +83,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Participants"
-        android:id="@+id/textView"
-        android:layout_below="@+id/editText5"
+        android:id="@+id/tv_participants"
+        android:layout_below="@+id/et_Location"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -92,9 +92,9 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText7"
-        android:layout_below="@+id/textView"
-        android:layout_alignEnd="@+id/editText5"
+        android:id="@+id/et_email1"
+        android:layout_below="@+id/tv_participants"
+        android:layout_alignEnd="@+id/et_Location"
         android:text="Email1" />
 
     <EditText
@@ -103,7 +103,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editText8"
-        android:layout_below="@+id/editText7"
+        android:layout_below="@+id/et_email1"
         android:layout_alignParentStart="true"
         android:text="Email2" />
 
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:text="Invite Participants"
         android:id="@+id/invitePartButtons"
-        android:layout_alignTop="@+id/editText7"
-        android:layout_toEndOf="@+id/editText7" />
+        android:layout_alignTop="@+id/et_email1"
+        android:layout_toEndOf="@+id/et_email1" />
 
 </RelativeLayout>
