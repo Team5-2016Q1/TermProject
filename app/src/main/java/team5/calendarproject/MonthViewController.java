@@ -1,11 +1,8 @@
 package team5.calendarproject;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -13,15 +10,9 @@ import java.util.Date;
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
 
-    private Button MontlyAddEventButton = (Button) findViewById(R.id.monthly_add_event_button);
+    //private Button MontlyAddEventButton = (Button) findViewById(R.id.monthly_add_event_button);
 
-    private int dayIDs[] = {R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
-            R.id.weekly_wednesday, R.id.weekly_thursday, R.id.weekly_friday, R.id.weekly_saturday};
 
-    private int weekIDs[] = {R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
-            R.id.monthly_week_4, R.id.monthly_week_5};
-
-    private String dayNames[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +25,14 @@ public class MonthViewController extends AppCompatActivity {
         Date today = new Date();
         int totalDaysInMonth = 30;
         int setupDayNumber = 1;
+
+        int dayIDs[] = {R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
+                R.id.weekly_wednesday, R.id.weekly_thursday, R.id.weekly_friday, R.id.weekly_saturday};
+
+        int weekIDs[] = {R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
+                R.id.monthly_week_4, R.id.monthly_week_5};
+
+        String dayNames[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
         View workingDay;
         TextView monthName = (TextView)findViewById(R.id.monthly_view_month_name);
