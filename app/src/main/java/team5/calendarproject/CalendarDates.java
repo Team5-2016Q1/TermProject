@@ -1,5 +1,7 @@
 package team5.calendarproject;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -65,6 +67,13 @@ public enum CalendarDates {
         }
 
         return daysInMonth;
+    }
+
+    public Date firstDayOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DATE, 1);
+        return calendar.getTime();
     }
 
 }

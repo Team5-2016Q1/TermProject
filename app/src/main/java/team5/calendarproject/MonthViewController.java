@@ -8,12 +8,10 @@ import android.widget.TextView;
 import android.widget.Button;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
-    Button btnAdd;
+    private Button addEventButton;
 
     //private Button MonthlyAddEventButton = (Button) findViewById(R.id.monthly_add_event_button);
 
@@ -24,6 +22,14 @@ public class MonthViewController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.month_view);
         setupMonth();
+
+        Button addEventButton = (Button) findViewById(R.id.monthly_add_event_button);
+        addEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToAddEventView();
+            }
+        });
 
     }
 
@@ -55,12 +61,13 @@ public class MonthViewController extends AppCompatActivity {
                 setupDayNumber++;
                 if(setupDayNumber == totalDaysInMonth) setupDayNumber = 1;
             }
+
         }
 
     }
 
     //ADD EVENT
-    public void goToAddEventView(View view){
+    public void goToAddEventView(){
         startActivity(new Intent(this, AddEventController.class));
     }
 
