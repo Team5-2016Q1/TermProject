@@ -9,13 +9,15 @@ abstract class Event  {
     private String title;
     private String color;
     private String alarm;
+    private final int DB_ID_NUMBER;
 
-    public Event(int time, int date, String title, String color, String alarm) {
+    public Event(int time, int date, String title, String color, String alarm, int dbIDNumber) {
         this.time = time;
         this.date = date;
         this.title = title;
         this.color = color;
         this.alarm = alarm;
+        this.DB_ID_NUMBER = dbIDNumber;
     }
 
     public int getTime() {
@@ -56,5 +58,9 @@ abstract class Event  {
 
     public void setAlarm(String alarm) {
         this.alarm = alarm;
+    }
+
+    public int getDbIDNumber() {
+        return this.DB_ID_NUMBER;
     }
 }

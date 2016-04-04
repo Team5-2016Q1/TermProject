@@ -8,12 +8,12 @@ import java.util.ArrayList;
 public class CalendarEvent extends Event {
     private ArrayList<String> participants;
     private String location;
-    private String endTime;
+    private int endTime;
     private Repeating repeats;
 
-    public CalendarEvent(int time, int date, String title, String color, String alarm,
-                         ArrayList<String> participants, String location, int r) {
-        super(time, date, title, color, alarm);
+    public CalendarEvent(int idNumber, int time, int endTime, int date, String title, String color, String alarm,
+                         ArrayList<String> participants, String location, int repeats) {
+        super(time, date, title, color, alarm, idNumber);
         this.participants = participants;
     }
 }

@@ -43,6 +43,11 @@ public class AddEventController extends AppCompatActivity {
         etEmail2 = (EditText) findViewById(R.id.et_email2);
 
         Cancel();
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                createNewEvent();
+            }
+        });
     }
 
     private void Cancel() {
@@ -53,6 +58,29 @@ public class AddEventController extends AppCompatActivity {
                 startActivity(back);
             }
         });
+    }
+
+    public void createNewEvent() {
+        Database db = new Database(this);
+
+        String title;
+        String date;
+        int time;
+        int endTime;
+        String color;
+        boolean alarm1;
+        boolean alarm2;
+        boolean alarm3;
+        int repeating;
+        String location;
+        String participants;
+
+        //TODO: initialize each item, uncomment db.insertEventRow
+
+        //db.insertEventRow(title, date, time, endTime, color, alarm1, alarm2, alarm3, repeating,
+        //        location, participants);
+
+        //Maybe go to event view
     }
 
 
