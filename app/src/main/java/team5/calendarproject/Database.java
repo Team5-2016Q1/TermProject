@@ -7,10 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.util.Date;
+
 /**
  * Created by edward on 4/2/16.
  */
-public final class DatabaseController {
+public final class Database {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
@@ -23,6 +25,7 @@ public final class DatabaseController {
     private static final String INT_TYPE = " INTEGER";
     private static final String LONG_TYPE = " LONG";
     private static final String DOUBLE_TYPE = " DOUBLE";
+    private static final String DATE_TYPE = "DATE";
     private static final String COMMA_SEP = ",";
 
 
@@ -30,31 +33,56 @@ public final class DatabaseController {
     //TODO: This is where we enter in information for database
 
     //LOGIN INFORMATION TABLE
+    /*
+    * @param title
+    * @param date
+    * @param time
+    * @param endTime
+    * @param color
+    * @param alarm1
+    * @param alarm2
+    * @param alarm3
+    * @param repeating
+    * @param location
+    * @param participants
+    */
     private static abstract class EventEntries implements BaseColumns {
-        public static final String TABLE_NAME = "Passwords";
+        public static final String TABLE_NAME = "CalendarEvent";
         public static final String _ID = "ID";
-        public static final String NAME = "Name";
-        public static final String EMAIL = "Email";
-        public static final String PASSWORD = "Password";
-        public static final String SECRET_QUESTION = "SecretQuestion";
-        public static final String SECRET_ANSWER = "SecretAnswer";
+        public static final String TITLE = "Title";
+        public static final String DATE = "Date";
+        public static final String TIME = "Time";
+        public static final String END_TIME = "EndTime";
+        public static final String COLOR = "Color";
+        public static final String ALARM1 = "Alarm1";
+        public static final String ALARM2 = "Alarm2";
+        public static final String ALARM3 = "Alarm3";
+        public static final String REPEATING = "Repeating";
+        public static final String LOCATION = "Location";
+        public static final String PARTICIPANTS = "Participants";
         public static final String APP_ID = "AppID";
         public static final String[] ALL_COLUMNS =
-                {_ID, NAME, EMAIL, PASSWORD, SECRET_QUESTION, SECRET_ANSWER, APP_ID};
+                {_ID, TITLE, DATE, TIME, END_TIME, COLOR, ALARM1, ALARM2, ALARM3,
+                        REPEATING, LOCATION, PARTICIPANTS, APP_ID};
     }
 
-    private static final String SQL_CREATE_LOGIN_ENTRIES =
+    private static final String SQL_CREATE_EVENT_ENTRIES =
             "CREATE TABLE " + EventEntries.TABLE_NAME + " (" +
                     EventEntries._ID + " INTEGER PRIMARY KEY," +
-                    EventEntries.NAME + TEXT_TYPE + COMMA_SEP +
-                    EventEntries.EMAIL + TEXT_TYPE + COMMA_SEP +
-                    EventEntries.PASSWORD + TEXT_TYPE + COMMA_SEP +
-                    EventEntries.SECRET_QUESTION + INT_TYPE + COMMA_SEP +
-                    EventEntries.SECRET_ANSWER + TEXT_TYPE + COMMA_SEP +
+                    EventEntries.TITLE + TEXT_TYPE + COMMA_SEP +
+                    EventEntries.DATE + TEXT_TYPE + COMMA_SEP +
+                    EventEntries.TIME + INT_TYPE + COMMA_SEP +
+                    EventEntries.END_TIME + INT_TYPE + COMMA_SEP +
+                    EventEntries.COLOR + TEXT_TYPE + COMMA_SEP +
+                    EventEntries.ALARM1 + INT_TYPE + COMMA_SEP +
+                    EventEntries.ALARM2 + INT_TYPE + COMMA_SEP +
+                    EventEntries.ALARM3 + INT_TYPE + COMMA_SEP +
+                    EventEntries.REPEATING + INT_TYPE + COMMA_SEP +
+                    EventEntries.LOCATION + TEXT_TYPE + COMMA_SEP +
+                    EventEntries.PARTICIPANTS + TEXT_TYPE + COMMA_SEP +
                     EventEntries.APP_ID + INT_TYPE
-
                     + ");";
-    private static final String SQL_DELETE_LOGIN_ENTRIES =
+    private static final String SQL_DELETE_EVENT_ENTRIES =
             "DROP TABLE IF EXISTS " + EventEntries.TABLE_NAME;
 
 	/*
@@ -71,13 +99,13 @@ public final class DatabaseController {
     // give it an empty constructor.
     //public DatabaseContract() {}
 
-    public DatabaseController(Context ctx) {
+    public Database(Context ctx) {
         this.context = ctx;
         myDBHelper = new DatabaseHelper(context);
     }
 
     // Open the database connection.
-    public DatabaseController open() {
+    public Database open() {
         db = myDBHelper.getWritableDatabase();
         return this;
     }
@@ -94,27 +122,36 @@ public final class DatabaseController {
      * @param title
      * @param date
      * @param time
-     * @param
-     * @param
-     * @param
-     * @param
-     * @param
+     * @param endTime
+     * @param color
+     * @param alarm1
+     * @param alarm2
+     * @param alarm3
+     * @param repeating
+     * @param location
+     * @param participants
      * @return The DB table _ID row number.
      */
-    public long insertEventRow(String name, String email, String password,
-                               int question, String answer)  {
+    public long insertEventRow(String title, String date, int time, int endTime, String color,
+                               boolean alarm1, boolean alarm2, boolean alarm3, int repeating,
+                               String location, String participants)  {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
         // Create row's data:
         ContentValues initialValues = new ContentValues();
-        initialValues.put(EventEntries.NAME, name);
-        initialValues.put(EventEntries.EMAIL, email);
-        initialValues.put(EventEntries.PASSWORD, password);
-        initialValues.put(EventEntries.SECRET_QUESTION, question);
-        initialValues.put(EventEntries.SECRET_ANSWER, answer);
+        initialValues.put(EventEntries.TITLE, title);
+        initialValues.put(EventEntries.DATE, date);
+        initialValues.put(EventEntries.TIME, time);
+        initialValues.put(EventEntries.COLOR, endTime);
+        initialValues.put(EventEntries.ALARM1, alarm1);
+        initialValues.put(EventEntries.ALARM2, alarm2);
+        initialValues.put(EventEntries.ALARM3, alarm3);
+        initialValues.put(EventEntries.REPEATING, repeating);
+        initialValues.put(EventEntries.LOCATION, location);
+        initialValues.put(EventEntries.PARTICIPANTS, participants);
 
         int ID = 0, i = 0;
-        for(char letter : email.toCharArray()) {
+        for(char letter : title.toCharArray()) {
             ID += letter + i;
             i++;
         }
@@ -126,18 +163,24 @@ public final class DatabaseController {
     }
 
     // Change an existing row to be equal to new data.
-    public boolean updateEventRow(long rowId, String name, String email,
-                                  String password, int question, String answer) {
+    public boolean updateEventRow(long rowId, String title, String date, int time, int endTime, String color,
+                                  boolean alarm1, boolean alarm2, boolean alarm3, int repeating,
+                                  String location, String participants) {
         String where = EventEntries._ID + "=" + rowId;
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
         // Create row's data:
         ContentValues newValues = new ContentValues();
-        newValues.put(EventEntries.NAME, name);
-        newValues.put(EventEntries.EMAIL, email);
-        newValues.put(EventEntries.PASSWORD, password);
-        newValues.put(EventEntries.SECRET_QUESTION, question);
-        newValues.put(EventEntries.SECRET_ANSWER, answer);
+        newValues.put(EventEntries.TITLE, title);
+        newValues.put(EventEntries.DATE, date);
+        newValues.put(EventEntries.TIME, time);
+        newValues.put(EventEntries.COLOR, endTime);
+        newValues.put(EventEntries.ALARM1, alarm1);
+        newValues.put(EventEntries.ALARM2, alarm2);
+        newValues.put(EventEntries.ALARM3, alarm3);
+        newValues.put(EventEntries.REPEATING, repeating);
+        newValues.put(EventEntries.LOCATION, location);
+        newValues.put(EventEntries.PARTICIPANTS, participants);
 
         // Insert it into the database.
         return db.update(EventEntries.TABLE_NAME, newValues, where, null) != 0;
@@ -199,7 +242,7 @@ public final class DatabaseController {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL(SQL_CREATE_LOGIN_ENTRIES);
+            db.execSQL(SQL_CREATE_EVENT_ENTRIES);
             //career
         }
 
@@ -208,7 +251,7 @@ public final class DatabaseController {
             // This database is only a cache for online data, so its upgrade policy is
             // to simply to discard the data and start over
             //LOGIN
-            db.execSQL(SQL_DELETE_LOGIN_ENTRIES);
+            db.execSQL(SQL_DELETE_EVENT_ENTRIES);
             //CAREER
             onCreate(db);
         }
