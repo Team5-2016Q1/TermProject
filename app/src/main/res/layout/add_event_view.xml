@@ -25,7 +25,7 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/et_EventDate"
-        android:hint="Event Date"
+        android:hint="Event Date mm-dd-yyyy"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/et_EventTilte"
@@ -44,7 +44,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="End Time"
+        android:hint="End Time hh:mm"
         android:inputType="time"
         android:ems="10"
         android:id="@+id/et_EventEndTime"
@@ -54,7 +54,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Start Time"
+        android:hint="Start Time hh:mm"
         android:inputType="time"
         android:ems="10"
         android:id="@+id/et_EventStartTime"
@@ -102,10 +102,11 @@
         android:layout_height="wrap_content"
         android:text="@string/Cancel"
         android:id="@+id/cancelButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:onClick="onClickCancel"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/et_EventStartTime"
+        android:layout_below="@+id/checkBox3" />
 
     <Button
         android:layout_width="wrap_content"
@@ -114,7 +115,8 @@
         android:id="@+id/createButton"
         android:layout_alignBottom="@+id/cancelButton"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/checkBox3" />
 
     <TextView
         android:layout_width="wrap_content"
