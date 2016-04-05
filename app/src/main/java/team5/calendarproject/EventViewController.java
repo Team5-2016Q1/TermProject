@@ -19,6 +19,7 @@ public class EventViewController extends AppCompatActivity {
     public void PopulateEventView(int id) {
         Database db = new Database(this);
 
+        int idNum;
         String title;
         String date;
         int time;
@@ -37,11 +38,13 @@ public class EventViewController extends AppCompatActivity {
          */
         Cursor dbInfo = db.getEventRow(id);
 
-        title = dbInfo.getString(1); //_ID is 0, TITLE is 1 and so on...
+        idNum = dbInfo.getInt(0); //_ID is 0
+
+        title = dbInfo.getString(1); //TITLE is 1 and so on...
 
         //TODO: populate each item with dbInfo.getType_of_object(#); uncomment event
 
-        //CalendarEvent event = new CalendarEvent(time, endTime, date, title, color, alarm1,
+        //CalendarEvent event = new CalendarEvent(idNum, time, endTime, date, title, color, alarm1,
         //        alarm2, alarm3, participants, location, repeating);
 
     }
