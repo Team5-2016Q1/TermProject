@@ -13,8 +13,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class AddEventController extends AppCompatActivity {
-    Button btnCreate, btnCancel;
-    EditText etEventTitle, etEventDate, etEventLocation, etEventEndTime, etEventStartTime,
+    private Button btnCreate, btnCancel;
+    private EditText etEventTitle, etEventDate, etEventLocation, etEventEndTime, etEventStartTime,
             etEmail1, etEmail2;
 
 

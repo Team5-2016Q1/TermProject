@@ -7,9 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="team5.calendarproject.AddEventController"
-    android:onClick="onClickCancel"
-    android:id="@+id/cancelButton">
+    tools:context="team5.calendarproject.AddEventController">
 
     <EditText
         android:layout_width="match_parent"
