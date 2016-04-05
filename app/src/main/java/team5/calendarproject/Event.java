@@ -8,10 +8,10 @@ abstract class Event  {
     private int date;
     private String title;
     private String color;
-    private String alarm;
+    boolean alarm;
     private final int DB_ID_NUMBER;
 
-    public Event(int time, int date, String title, String color, String alarm, int dbIDNumber) {
+    public Event(int time, int date, String title, String color, boolean alarm, int dbIDNumber) {
         this.time = time;
         this.date = date;
         this.title = title;
@@ -52,11 +52,11 @@ abstract class Event  {
         this.color = color;
     }
 
-    public String getAlarm() {
+    public Boolean getAlarm() {
         return alarm;
     }
 
-    public void setAlarm(String alarm) {
+    public void setAlarm(boolean alarm) {
         this.alarm = alarm;
     }
 
