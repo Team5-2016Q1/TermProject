@@ -57,13 +57,11 @@ public class MonthViewController extends AppCompatActivity {
 
         monthName.setText(CalendarDates.values()[Calendar.MONTH].toString());
 
-        Cursor c = db.getAllEventRows();
+        Cursor c = null; //db.getAllEventRows();
         ArrayList<CalendarEvent> events = new ArrayList<>();
         if(c != null) {
+            c.moveToFirst();
             do {
-
-                c.moveToFirst();
-
                 //c.getInt(0); //_ID is 0
 
                 //c.getString(1); //TITLE is 1 and so on...

@@ -31,18 +31,9 @@ public class AddEventController extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 
+        makeButtonsWork();
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
-        btnCancel = (Button)findViewById(R.id.cancelButton);
-        btnCreate = (Button)findViewById(R.id.createButton);
-        etEventTitle = (EditText) findViewById(R.id.et_EventTilte);
-        etEventDate = (EditText) findViewById(R.id.et_EventDate);
-        etEventLocation = (EditText) findViewById(R.id.et_Location);
-        etEventStartTime = (EditText) findViewById(R.id.et_EventStartTime);
-        etEventEndTime = (EditText) findViewById(R.id.et_EventEndTime);
-        etEmail1 = (EditText) findViewById(R.id.et_email1);
-        etEmail2 = (EditText) findViewById(R.id.et_email2);
 
         //Cancel();
         btnCreate.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +49,20 @@ public class AddEventController extends AppCompatActivity {
                 startActivity(back);
             }
         });
+    }
+
+    private void makeButtonsWork() {
+
+        btnCancel = (Button)findViewById(R.id.cancelButton);
+        btnCreate = (Button)findViewById(R.id.createButton);
+        etEventTitle = (EditText) findViewById(R.id.et_EventTilte);
+        etEventDate = (EditText) findViewById(R.id.et_EventDate);
+        etEventLocation = (EditText) findViewById(R.id.et_Location);
+        etEventStartTime = (EditText) findViewById(R.id.et_EventStartTime);
+        etEventEndTime = (EditText) findViewById(R.id.et_EventEndTime);
+        etEmail1 = (EditText) findViewById(R.id.et_email1);
+        etEmail2 = (EditText) findViewById(R.id.et_email2);
+
     }
 
     private void Cancel() {
