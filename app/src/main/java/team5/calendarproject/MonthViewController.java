@@ -59,40 +59,42 @@ public class MonthViewController extends AppCompatActivity {
 
         Cursor c = db.getAllEventRows();
         ArrayList<CalendarEvent> events = new ArrayList<>();
-        do {
+        if(c != null) {
+            do {
 
-            c.moveToFirst();
+                c.moveToFirst();
 
-            c.getInt(0); //_ID is 0
+                //c.getInt(0); //_ID is 0
 
-            c.getString(1); //TITLE is 1 and so on...
+                //c.getString(1); //TITLE is 1 and so on...
 
-            Date date = new Date(c.getString(2));
+                //Date date = new Date(c.getString(2));
 
-            boolean alarm1 = false;
-            if(c.getInt(6) != 0) {
-                alarm1 = true;
-            }
+                boolean alarm1 = false;
+                if (c.getInt(6) != 0) {
+                    alarm1 = true;
+                }
 
-            ArrayList<String> participants = new ArrayList<>();
-            StringTokenizer t = new StringTokenizer(" ");
-            //tokenize c.getString(11)
+                ArrayList<String> participants = new ArrayList<>();
+                StringTokenizer t = new StringTokenizer(" ");
+                //tokenize c.getString(11)
 
-            //TODO: populate each item with dbInfo.getType_of_object(#); uncomment event
+                //TODO: populate each item with dbInfo.getType_of_object(#); uncomment event
 
         /*
          * 0 _ID, 1 TITLE, 2 DATE, 3 TIME, 4 END_TIME, 5 COLOR, 6 ALARM1, 7 ALARM2, 8 ALARM3,
          *              9 REPEATING, 10 LOCATION, 11 PARTICIPANTS, 12 APP_ID
          */
-            events.add(new CalendarEvent(
-                            c.getInt(0), c.getInt(3), c.getInt(4), Calendar.APRIL,
-                            c.getString(1), c.getString(5), alarm1,
+                events.add(new CalendarEvent(
+                                c.getInt(0), c.getInt(3), c.getInt(4), Calendar.APRIL,
+                                c.getString(1), c.getString(5), alarm1,
                             /*c.getInt(7), c.getString(8),*/ participants,
-                            c.getString(10), c.getInt(9))
-            );
+                                c.getString(10), c.getInt(9))
+                );
 
-            c.moveToNext();
-        } while(c.isLast() == false);
+                c.moveToNext();
+            } while (c.isLast() == false);
+        }
 
         for(int weekNumber = 0; weekNumber < 5; weekNumber++) {
             for(int dayNumber = 0; dayNumber < 7; dayNumber++) {
