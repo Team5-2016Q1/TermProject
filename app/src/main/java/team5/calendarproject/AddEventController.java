@@ -30,6 +30,8 @@ public class AddEventController extends AppCompatActivity {
         setContentView(R.layout.add_event_view);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
+
+
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         btnCancel = (Button)findViewById(R.id.cancelButton);
@@ -42,10 +44,18 @@ public class AddEventController extends AppCompatActivity {
         etEmail1 = (EditText) findViewById(R.id.et_email1);
         etEmail2 = (EditText) findViewById(R.id.et_email2);
 
-        Cancel();
+        //Cancel();
         btnCreate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 createNewEvent();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back = new Intent(getApplicationContext(),MonthViewController.class);
+                startActivity(back);
             }
         });
     }
@@ -59,6 +69,9 @@ public class AddEventController extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     public void createNewEvent() {
         Database db = new Database(this);
