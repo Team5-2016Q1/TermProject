@@ -1,13 +1,11 @@
 package team5.calendarproject;
 
-import android.content.Context;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-
-import java.util.Date;
 
 /**
  * Created by edward on 4/2/16.
@@ -133,7 +131,7 @@ public final class Database {
      * @return The DB table _ID row number.
      */
     public long insertEventRow(String title, String date, int time, int endTime, String color,
-                               boolean alarm1, boolean alarm2, boolean alarm3, int repeating,
+                               int alarm1, int alarm2, int alarm3, int repeating,
                                String location, String participants)  {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
@@ -164,7 +162,7 @@ public final class Database {
 
     // Change an existing row to be equal to new data.
     public boolean updateEventRow(long rowId, String title, String date, int time, int endTime, String color,
-                                  boolean alarm1, boolean alarm2, boolean alarm3, int repeating,
+                                  int alarm1, int alarm2, int alarm3, int repeating,
                                   String location, String participants) {
         String where = EventEntries._ID + "=" + rowId;
         // TODO: Update data in the row with new fields.

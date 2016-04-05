@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.google.android.gms.appindexing.Action;
@@ -16,6 +17,7 @@ public class AddEventController extends AppCompatActivity {
     private Button btnCreate, btnCancel;
     private EditText etEventTitle, etEventDate, etEventLocation, etEventEndTime, etEventStartTime,
             etEmail1, etEmail2;
+    private CheckBox alarm1, alarm2, alarm3;
 
 
     /**
@@ -62,6 +64,9 @@ public class AddEventController extends AppCompatActivity {
         etEventEndTime = (EditText) findViewById(R.id.et_EventEndTime);
         etEmail1 = (EditText) findViewById(R.id.et_email1);
         etEmail2 = (EditText) findViewById(R.id.et_email2);
+        alarm1 = (CheckBox) findViewById(R.id.checkBoxEmail);
+        alarm2 = (CheckBox) findViewById(R.id.checkBoxAlarm);
+        alarm3 = (CheckBox) findViewById(R.id.checkBoxSilent);
 
     }
 
@@ -86,17 +91,42 @@ public class AddEventController extends AppCompatActivity {
         int time;
         int endTime;
         String color;
-        boolean alarm1;
-        boolean alarm2;
-        boolean alarm3;
+        int alarm1;
+        int alarm2;
+        int alarm3;
         int repeating;
         String location;
         String participants;
 
         //TODO: initialize each item, uncomment db.insertEventRow
 
-        //db.insertEventRow(title, date, time, endTime, color, alarm1, alarm2, alarm3, repeating,
-        //        location, participants);
+        title = etEventTitle.getText().toString();
+        date = etEventDate.getText().toString();
+        time = new Integer(etEventStartTime.getText().toString());
+        endTime = new Integer(etEventEndTime.getText().toString());
+        color = "blue";
+        if(this.alarm1.isChecked() == true) {
+            alarm1 = 1;
+        } else {
+            alarm1 = 0;
+        }
+        if(this.alarm2.isChecked() == true) {
+            alarm2 = 1;
+        } else {
+            alarm2 = 0;
+        }
+        if(this.alarm3.isChecked() == true) {
+            alarm3 = 1;
+        } else {
+            alarm3 = 0;
+        }
+        repeating = 0;
+        location = etEventLocation.getText().toString();
+        participants = etEmail1.getText().toString() + " " + etEmail2.getText().toString();
+
+
+        db.insertEventRow(title, date, time, endTime, color, alarm1, alarm2, alarm3, repeating,
+                location, participants);
 
         //Maybe go to event view
     }
