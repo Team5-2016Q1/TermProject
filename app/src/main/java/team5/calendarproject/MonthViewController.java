@@ -60,7 +60,7 @@ public class MonthViewController extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setupMonth();
+        setupMonth(Calendar.MONTH);
         makeEventsList();
     }
 
@@ -74,9 +74,9 @@ public class MonthViewController extends AppCompatActivity {
     }
 
 
-    private void setupMonth() {
+    private void setupMonth(int m) {
 
-        int totalDaysInMonth = CalendarDates.values()[Calendar.MONTH].getNumberOfDays(Calendar.YEAR);
+        int totalDaysInMonth = CalendarDates.values()[m].getNumberOfDays(Calendar.YEAR);
         int setupDayNumber = 1;
 
         dayIDs = new int[] {R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
@@ -91,7 +91,7 @@ public class MonthViewController extends AppCompatActivity {
 
         monthName = (TextView)findViewById(R.id.monthly_view_month_name);
         //set to current month name
-        monthName.setText(CalendarDates.values()[Calendar.MONTH].toString());
+        monthName.setText(CalendarDates.values()[m].toString());
 
         //TODO: figure out to properly do this
         for(int weekNumber = 0; weekNumber < 5; weekNumber++) {
