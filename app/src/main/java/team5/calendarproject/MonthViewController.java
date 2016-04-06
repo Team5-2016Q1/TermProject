@@ -49,6 +49,7 @@ public class MonthViewController extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupMonth();
+        goToEventView();
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
@@ -161,7 +162,7 @@ public class MonthViewController extends AppCompatActivity {
      * @param month the month the event is on
      *
      */
-    private void viewEventOnDay(int day, int month) {
+    private void goToEventView() {
         startActivity(
                 new Intent(this, EventViewController.class).putExtra("Event", events.get(0))
         );
@@ -170,7 +171,7 @@ public class MonthViewController extends AppCompatActivity {
     //ADD EVENT
     public void goToAddEventView(){
         startActivity(
-                new Intent(this, AddEventController.class).putExtra("Event", events.get(0))
+                new Intent(this, AddEventController.class)
         );
     }
 
