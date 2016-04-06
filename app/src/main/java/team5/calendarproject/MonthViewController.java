@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import java.util.Calendar;
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
     private Button addEventButton;
+    private Button viewEventButton;
     private TextView monthName;
     private ArrayList<CalendarEvent> events;
     private ArrayList<Task> tasks;
@@ -36,6 +38,15 @@ public class MonthViewController extends AppCompatActivity {
             }
         });
 
+        viewEventButton = (Button) findViewById(R.id.viewEventButton);
+        viewEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToEventView();
+            }
+        });
+
+
     }
 
     @Override
@@ -49,7 +60,6 @@ public class MonthViewController extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupMonth();
-        goToEventView();
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
@@ -158,11 +168,15 @@ public class MonthViewController extends AppCompatActivity {
 
     /**
      *
-     * @param day the day the event is on
-     * @param month the month the event is on
+     * day the day the event is on
+     * month the month the event is on
      *
      */
     private void goToEventView() {
+        if(events.isEmpty()) {
+            toast("No event found");
+            return;
+        }
         startActivity(
                 new Intent(this, EventViewController.class).putExtra("Event", events.get(0))
         );
@@ -173,6 +187,10 @@ public class MonthViewController extends AppCompatActivity {
         startActivity(
                 new Intent(this, AddEventController.class)
         );
+    }
+
+    private void toast(String description) {
+        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
 
 }

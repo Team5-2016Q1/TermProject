@@ -14,7 +14,7 @@ public final class Database {
 
     //Database Name and Version Number. Change V# if you add new columns
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     //download and merge changes to update to current db before changing number
     //always save work! GitHub can be evil.
 
