@@ -1,17 +1,19 @@
 package team5.calendarproject;
 
+import java.io.Serializable;
+
 /**
  * Created by edward on 3/25/16.
  */
-abstract class Event  {
+abstract class Event  implements Serializable {
     private int time;
-    private int date;
+    private String date;
     private String title;
     private String color;
     boolean alarm;
     private final int DB_ID_NUMBER;
 
-    public Event(int time, int date, String title, String color, boolean alarm, int dbIDNumber) {
+    public Event(int time, String date, String title, String color, boolean alarm, int dbIDNumber) {
         this.time = time;
         this.date = date;
         this.title = title;
@@ -28,11 +30,11 @@ abstract class Event  {
         this.time = time;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

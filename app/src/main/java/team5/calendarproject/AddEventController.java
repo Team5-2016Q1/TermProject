@@ -18,6 +18,7 @@ public class AddEventController extends AppCompatActivity {
     private EditText etEventTitle, etEventDate, etEventLocation, etEventEndTime, etEventStartTime,
             etEmail1, etEmail2;
     private CheckBox alarm1, alarm2, alarm3;
+    private Database db;
 
 
     /**
