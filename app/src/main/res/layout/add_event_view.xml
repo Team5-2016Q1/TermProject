@@ -25,7 +25,7 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/et_EventDate"
-        android:hint="Event Date mm-dd-yyyy"
+        android:hint="Event Date MM-DD-YYYY"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/et_EventTilte"
@@ -44,7 +44,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="End Time hh:mm"
+        android:hint="End Time HH:MM"
         android:inputType="time"
         android:ems="10"
         android:id="@+id/et_EventEndTime"
