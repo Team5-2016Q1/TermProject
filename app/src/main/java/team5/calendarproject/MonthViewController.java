@@ -73,7 +73,7 @@ public class MonthViewController extends AppCompatActivity {
 
 
     private void setupMonth() {
-        db = new Database(this);
+        //db = new Database(this);
 
         int totalDaysInMonth = CalendarDates.values()[Calendar.MONTH].getNumberOfDays(Calendar.YEAR);
         int setupDayNumber = 1;
@@ -92,7 +92,7 @@ public class MonthViewController extends AppCompatActivity {
         //set to current month name
         monthName.setText(CalendarDates.values()[Calendar.MONTH].toString());
 
-        Cursor c = null; //db.getAllEventRows();
+        Cursor c = db.getAllEventRows();
         this.events = new ArrayList<>();
         if(c != null) {
             do {
@@ -143,7 +143,7 @@ public class MonthViewController extends AppCompatActivity {
 
                 c.moveToNext();
             } while (c.isLast() == false);
-        }
+        } else toast("Testing: c is null");
 
         //TODO: figure out to properly do this
         for(int weekNumber = 0; weekNumber < 5; weekNumber++) {
