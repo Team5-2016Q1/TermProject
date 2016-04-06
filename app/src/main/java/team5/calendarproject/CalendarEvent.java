@@ -11,7 +11,7 @@ public class CalendarEvent extends Event {
     private int endTime;
     private Repeating repeats;
 
-    public CalendarEvent(int idNumber, int time, int endTime, int date, String title, String color, boolean alarm,
+    public CalendarEvent(int idNumber, int time, int endTime, String date, String title, String color, Boolean alarm1, Boolean alarm2, Boolean alarm3,
                          ArrayList<String> participants, String location, int repeats) {
         super(time, date, title, color, alarm, idNumber);
         this.participants = participants;
