@@ -95,7 +95,7 @@ public class MonthViewController extends AppCompatActivity {
         Cursor c = db.getAllEventRows();
         this.events = new ArrayList<>();
         if(c != null) {
-            do {
+            //do {
 
                 boolean alarm1 = false;
                 if (c.getInt(6) != 0) {
@@ -141,8 +141,8 @@ public class MonthViewController extends AppCompatActivity {
 
 
 
-                c.moveToNext();
-            } while (c.isLast() == false);
+              //  c.moveToNext();
+            //} while (c.isLast() == false);
         } else toast("Testing: c is null");
 
         //TODO: figure out to properly do this

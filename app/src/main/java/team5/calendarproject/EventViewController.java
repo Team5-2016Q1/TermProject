@@ -1,18 +1,14 @@
 package team5.calendarproject;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.StringTokenizer;
 
 public class EventViewController extends AppCompatActivity {
 
@@ -98,6 +94,23 @@ public class EventViewController extends AppCompatActivity {
             text.setText(event.getTitle());
             text = (EditText) findViewById(R.id.et_EventDate);
             text.setText(event.getDate());
+            text = (EditText) findViewById(R.id.et_EventStartTime);
+            text.setText(event.getTime());
+            text = (EditText) findViewById(R.id.et_EventEndTime);
+            text.setText(event.getEndTime());
+            text = (EditText) findViewById(R.id.et_Location);
+            text.setText(event.getLocation());
+            text = (EditText) findViewById(R.id.et_email1);
+            text.setText(event.getParticipantsAsString());
+            text = (EditText) findViewById(R.id.et_email2);
+            text.setText(event.getParticipantsAsString());
+
+            CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
+            checkBox = (CheckBox) findViewById(R.id.checkBoxAlarm);
+            checkBox = (CheckBox) findViewById(R.id.checkBoxSilent);
+
+
+
             //TODO finish this. populate each R.id in event_view using event.get
         }
     }
