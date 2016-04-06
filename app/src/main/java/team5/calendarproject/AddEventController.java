@@ -29,6 +29,8 @@ public class AddEventController extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        openDB();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_event_view);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -52,6 +54,13 @@ public class AddEventController extends AppCompatActivity {
                 startActivity(back);
             }
         });
+    }
+
+    private void openDB() {
+        db = new Database(this);
+        db.open();
+        //User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
+        //Log.d("ID in ViewContact", "" + User_ID);
     }
 
     private void makeButtonsWork() {
@@ -85,7 +94,6 @@ public class AddEventController extends AppCompatActivity {
 
 
     public void createNewEvent() {
-        Database db = new Database(this);
 
         String title;
         String date;
