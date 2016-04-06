@@ -10,11 +10,18 @@ public class CalendarEvent extends Event {
     private String location;
     private int endTime;
     private Repeating repeats;
+    private boolean secondAlarm;
+    private boolean thirdAlarm;
 
     public CalendarEvent(int idNumber, int time, int endTime, String date, String title, String color, Boolean alarm1, Boolean alarm2, Boolean alarm3,
                          ArrayList<String> participants, String location, int repeats) {
         super(time, date, title, color, alarm1, idNumber);
         this.participants = participants;
+        this.endTime = endTime;
+        this.location = location;
+        secondAlarm = alarm2;
+        thirdAlarm = alarm3;
+        //this.repeats = repeats;
     }
 
     public ArrayList<String> getParticipants() {
@@ -63,5 +70,21 @@ public class CalendarEvent extends Event {
 
     public void setRepeats(Repeating repeats) {
         this.repeats = repeats;
+    }
+
+    public boolean isSecondAlarmSet() {
+        return secondAlarm;
+    }
+
+    public void setSecondAlarm(boolean secondAlarm) {
+        this.secondAlarm = secondAlarm;
+    }
+
+    public boolean isThirdAlarmSet() {
+        return thirdAlarm;
+    }
+
+    public void setThirdAlarm(boolean thirdAlarm) {
+        this.thirdAlarm = thirdAlarm;
     }
 }

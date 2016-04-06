@@ -21,7 +21,8 @@ public class MonthViewController extends AppCompatActivity {
     private ArrayList<CalendarEvent> events;
     private ArrayList<Task> tasks;
     private Database db;
-
+    private int weekIDs[];
+    private int dayIDs[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MonthViewController extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupMonth();
+        makeEventsList();
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
@@ -73,15 +75,14 @@ public class MonthViewController extends AppCompatActivity {
 
 
     private void setupMonth() {
-        //db = new Database(this);
 
         int totalDaysInMonth = CalendarDates.values()[Calendar.MONTH].getNumberOfDays(Calendar.YEAR);
         int setupDayNumber = 1;
 
-        int dayIDs[] = {R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
+        dayIDs = new int[] {R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
                 R.id.weekly_wednesday, R.id.weekly_thursday, R.id.weekly_friday, R.id.weekly_saturday};
 
-        int weekIDs[] = {R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
+        weekIDs = new int[] {R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
                 R.id.monthly_week_4, R.id.monthly_week_5};
 
         String dayNames[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
@@ -92,11 +93,25 @@ public class MonthViewController extends AppCompatActivity {
         //set to current month name
         monthName.setText(CalendarDates.values()[Calendar.MONTH].toString());
 
+        //TODO: figure out to properly do this
+        for(int weekNumber = 0; weekNumber < 5; weekNumber++) {
+            for(int dayNumber = 0; dayNumber < 7; dayNumber++) {
+                workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
+
+                TextView dayName = (TextView)workingDay.findViewById(R.id.day_name);
+                dayName.setText(dayNames[dayNumber] + " " + setupDayNumber);
+                setupDayNumber++;
+                if(setupDayNumber == totalDaysInMonth) setupDayNumber = 1;
+            }
+        }
+
+    }
+
+    private void makeEventsList() {
         Cursor c = db.getAllEventRows();
         this.events = new ArrayList<>();
         if(c != null) {
-            //do {
-
+            do {
                 boolean alarm1 = false;
                 if (c.getInt(6) != 0) {
                     alarm1 = true;
@@ -140,23 +155,13 @@ public class MonthViewController extends AppCompatActivity {
                 //     .setColor(getColor)
 
 
+                if(c.isLast()) return;
 
-              //  c.moveToNext();
-            //} while (c.isLast() == false);
-        } else toast("Testing: c is null");
+                c.moveToNext();
 
-        //TODO: figure out to properly do this
-        for(int weekNumber = 0; weekNumber < 5; weekNumber++) {
-            for(int dayNumber = 0; dayNumber < 7; dayNumber++) {
-                workingDay = (View)findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
-
-                TextView dayName = (TextView)workingDay.findViewById(R.id.day_name);
-                dayName.setText(dayNames[dayNumber] + " " + setupDayNumber);
-                setupDayNumber++;
-                if(setupDayNumber == totalDaysInMonth) setupDayNumber = 1;
-            }
-        }
-
+            } while (true);
+        } else
+            toast("Testing: c is null");
     }
 
     @Override

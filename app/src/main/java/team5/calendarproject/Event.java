@@ -54,7 +54,7 @@ abstract class Event  implements Serializable {
         this.color = color;
     }
 
-    public Boolean getAlarm() {
+    public Boolean isAlarmSet() {
         return alarm;
     }
 
