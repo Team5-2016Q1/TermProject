@@ -15,7 +15,6 @@
         android:hint="Event Title"
         android:inputType="text"
         android:id="@+id/et_EventTilte"
-        android:layout_marginLeft="10dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
@@ -25,9 +24,7 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/et_EventDate"
-        android:hint="Event Date MM-DD-YYYY"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:hint="Event Date"
         android:layout_below="@+id/et_EventTilte"
         android:layout_alignParentStart="true" />
 
@@ -44,7 +41,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="End Time HH:MM"
+        android:hint="End Time"
         android:inputType="time"
         android:ems="10"
         android:id="@+id/et_EventEndTime"
@@ -54,12 +51,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Start Time hh:mm"
+        android:hint="Start Time"
         android:inputType="time"
         android:ems="10"
         android:id="@+id/et_EventStartTime"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_below="@+id/et_EventDate"
         android:layout_alignParentStart="true" />
 
@@ -69,8 +64,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Participants:"
         android:id="@+id/tv_participants"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
         android:layout_below="@+id/et_Location"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/checkBoxEmail" />
@@ -126,6 +119,12 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/et_email2"
         android:layout_alignStart="@+id/cancelButton" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_alignParentStart="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
