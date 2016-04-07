@@ -83,9 +83,9 @@ public class MonthViewController extends AppCompatActivity {
                 R.id.weekly_wednesday, R.id.weekly_thursday, R.id.weekly_friday, R.id.weekly_saturday};
 
         weekIDs = new int[] {R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
-                R.id.monthly_week_4, R.id.monthly_week_5};
+                R.id.monthly_week_4, R.id.monthly_week_5, R.id.monthly_week_6};
 
-        String dayNames[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        //String dayNames[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
         View workingDay;
 
@@ -94,12 +94,12 @@ public class MonthViewController extends AppCompatActivity {
         monthName.setText(CalendarDates.values()[m].toString());
 
         //TODO: figure out to properly do this
-        for(int weekNumber = 0; weekNumber < 5; weekNumber++) {
+        for(int weekNumber = 0; weekNumber < 6; weekNumber++) {
             for(int dayNumber = 0; dayNumber < 7; dayNumber++) {
                 workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
 
                 TextView dayName = (TextView)workingDay.findViewById(R.id.day_name);
-                dayName.setText(dayNames[dayNumber] + " " + setupDayNumber);
+                dayName.setText("" + setupDayNumber);
                 setupDayNumber++;
                 if(setupDayNumber == totalDaysInMonth) setupDayNumber = 1;
             }

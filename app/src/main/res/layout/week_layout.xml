@@ -3,15 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1px"
-        android:foregroundGravity="fill_horizontal"
-        android:background="#FF0000FF"/>
-
     <GridLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:useDefaultMargins="false"
@@ -23,7 +17,8 @@
         android:layout_alignParentStart="true"
         android:rowCount="1"
         android:columnCount="13"
-        android:id="@+id/gridLayout">
+        android:id="@+id/gridLayout"
+        android:background="#a6a6a6">
 
         <LinearLayout
             android:id="@+id/weekly_sunday"
@@ -36,14 +31,8 @@
             android:layout_row="0"
             android:clickable="true"
             android:padding="@dimen/monthly_days_padding">
-                <include layout="@layout/day_layout" />
+            <include layout="@layout/day_layout" />
         </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="70dp"
-            android:background="#FF0000FF"
-            android:layout_column="1" />
 
         <LinearLayout
             android:id="@+id/weekly_monday"
@@ -55,14 +44,8 @@
             android:layout_columnWeight="1"
             android:layout_row="0"
             android:padding="@dimen/monthly_days_padding">
-                <include layout="@layout/day_layout" />
+            <include layout="@layout/day_layout" />
         </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="67dp"
-            android:background="#FF0000FF"
-            android:layout_column="3" />
 
         <LinearLayout
             android:id="@+id/weekly_tuesday"
@@ -74,14 +57,8 @@
             android:layout_columnWeight="1"
             android:layout_row="0"
             android:padding="@dimen/monthly_days_padding">
-                <include layout="@layout/day_layout" />
+            <include layout="@layout/day_layout" />
         </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="67dp"
-            android:background="#FF0000FF"
-            android:layout_column="5" />
 
         <LinearLayout
             android:id="@+id/weekly_wednesday"
@@ -93,14 +70,9 @@
             android:layout_columnWeight="1"
             android:layout_row="0"
             android:padding="@dimen/monthly_days_padding">
-                <include layout="@layout/day_layout" />
+            <include layout="@layout/day_layout" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1px"
-            android:layout_height="67dp"
-            android:background="#FF0000FF"
-            android:layout_column="7" />
 
         <LinearLayout
             android:id="@+id/weekly_thursday"
@@ -112,14 +84,9 @@
             android:layout_columnWeight="1"
             android:layout_row="0"
             android:padding="@dimen/monthly_days_padding">
-                <include layout="@layout/day_layout" />
+            <include layout="@layout/day_layout" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1px"
-            android:layout_height="67dp"
-            android:background="#FF0000FF"
-            android:layout_column="9" />
 
         <LinearLayout
             android:id="@+id/weekly_friday"
@@ -131,14 +98,9 @@
             android:layout_columnWeight="1"
             android:layout_row="0"
             android:padding="@dimen/monthly_days_padding">
-                <include layout="@layout/day_layout" />
+            <include layout="@layout/day_layout" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1px"
-            android:layout_height="67dp"
-            android:background="#FF0000FF"
-            android:layout_column="11" />
 
         <LinearLayout
             android:id="@+id/weekly_saturday"
@@ -150,7 +112,7 @@
             android:layout_columnWeight="1"
             android:layout_row="0"
             android:padding="@dimen/monthly_days_padding">
-                <include layout="@layout/day_layout" />
+            <include layout="@layout/day_layout" />
         </LinearLayout>
 
     </GridLayout>
