@@ -17,7 +17,8 @@
         android:id="@+id/et_EventTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:text="Event Title" />
+        android:text="Event Title"
+        android:layout_alignEnd="@+id/et_EventDate" />
 
     <Button
         android:layout_width="wrap_content"
@@ -94,7 +95,6 @@
         android:ems="10"
         android:id="@+id/et_email1"
         android:layout_below="@+id/tv_participants"
-        android:layout_alignEnd="@+id/et_Location"
         android:text="Email1" />
 
     <EditText

@@ -39,7 +39,7 @@ public class MonthViewController extends AppCompatActivity {
             }
         });
 
-        viewEventButton = (Button) findViewById(R.id.viewEventButton);
+        viewEventButton = (Button) findViewById(R.id.view_EventButton);
         viewEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +47,7 @@ public class MonthViewController extends AppCompatActivity {
             }
         });
 
+        //todo: on left and right button click, setupMonth(Calendar.MONTH+1);
 
     }
 
@@ -60,8 +61,8 @@ public class MonthViewController extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setupMonth(Calendar.MONTH);
         makeEventsList();
+        setupMonth(Calendar.MONTH);
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
@@ -84,8 +85,6 @@ public class MonthViewController extends AppCompatActivity {
 
         weekIDs = new int[] {R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
                 R.id.monthly_week_4, R.id.monthly_week_5, R.id.monthly_week_6};
-
-        //String dayNames[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
         View workingDay;
 

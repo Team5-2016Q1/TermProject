@@ -18,7 +18,7 @@
         android:rowCount="1"
         android:columnCount="13"
         android:id="@+id/gridLayout"
-        android:background="#a6a6a6">
+        android:background="#0d22af">
 
         <LinearLayout
             android:id="@+id/weekly_sunday"
