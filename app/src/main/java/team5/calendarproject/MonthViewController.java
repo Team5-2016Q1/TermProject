@@ -110,7 +110,7 @@ public class MonthViewController extends AppCompatActivity {
     private void makeEventsList() {
         Cursor c = db.getAllEventRows();
         this.events = new ArrayList<>();
-        if(c != null) {
+        if(c != null && c.moveToFirst()) {
             do {
                 boolean alarm1 = false;
                 if (c.getInt(6) != 0) {
