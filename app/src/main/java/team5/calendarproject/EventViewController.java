@@ -109,17 +109,17 @@ public class EventViewController extends AppCompatActivity {
             text.setText("" + event.getEndTime());
             text = (EditText) findViewById(R.id.et_Location);
             text.setText(event.getLocation());
-            //text = (EditText) findViewById(R.id.et_email1);
-           // text.setText(event.getParticipants().get(0));
-           // text = (EditText) findViewById(R.id.et_email2);
-           // text.setText("");//(event.getParticipants().get(1));
+            text = (EditText) findViewById(R.id.et_email1);
+            text.setText(event.getParticipants().get(0));
+            text = (EditText) findViewById(R.id.editText8);
+            text.setText(event.getParticipants().get(1));
 
             CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
-            checkBox.setActivated(event.isAlarmSet());
+            checkBox.setChecked(event.isAlarmSet());
             checkBox = (CheckBox) findViewById(R.id.checkBoxAlarm);
-            checkBox.setActivated(event.isSecondAlarmSet());
-           // checkBox = (CheckBox) findViewById(R.id.checkBoxSilent);
-            //checkBox.setActivated(event.isThirdAlarmSet());
+            checkBox.setChecked(event.isSecondAlarmSet());
+            checkBox = (CheckBox) findViewById(R.id.checkBox3);
+            checkBox.setChecked(event.isThirdAlarmSet());
 
         }
     }
@@ -142,8 +142,10 @@ public class EventViewController extends AppCompatActivity {
 
         ArrayList<String> participants = new ArrayList<>();
         String[] result = c.getString(11).split(" ");
-        for (int x = 0; x < result.length; x++)
+        for (int x = 0; x < result.length; x++) {
             participants.add(result[x]);
+            System.out.println(result[x]);
+        }
 
                 /*  0     1     2     3       4        5      6       7       8
                  * _ID, TITLE, DATE, TIME, END_TIME, COLOR, ALARM1, ALARM2, ALARM3,
