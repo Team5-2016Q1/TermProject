@@ -122,6 +122,7 @@ public class EventViewController extends AppCompatActivity {
         String partic = text.getText().toString();
         text = (EditText) findViewById(R.id.editText8);
         partic += " " + text.getText().toString();
+        //adding for push
 
         CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
         event.setAlarm(checkBox.isChecked());
