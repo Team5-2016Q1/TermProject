@@ -32,7 +32,7 @@ public class EventViewController extends AppCompatActivity {
         {
             Integer id = new Integer( (String)extras.getSerializable("id") );
             Cursor c = db.getEventRow(id);
-
+            makeEvent(c);
             Log.d("Event received", event.getTitle());
             setUpTextBoxes();
         }
@@ -104,22 +104,22 @@ public class EventViewController extends AppCompatActivity {
             text = (EditText) findViewById(R.id.et_EventDate);
             text.setText(event.getDate());
             text = (EditText) findViewById(R.id.et_EventStartTime);
-            text.setText(event.getTime());
+            text.setText("" + event.getTime());
             text = (EditText) findViewById(R.id.et_EventEndTime);
-            text.setText(event.getEndTime());
+            text.setText("" + event.getEndTime());
             text = (EditText) findViewById(R.id.et_Location);
             text.setText(event.getLocation());
-            text = (EditText) findViewById(R.id.et_email1);
-            text.setText(event.getParticipants().get(0));
-            text = (EditText) findViewById(R.id.et_email2);
-            text.setText(event.getParticipants().get(1));
+            //text = (EditText) findViewById(R.id.et_email1);
+           // text.setText(event.getParticipants().get(0));
+           // text = (EditText) findViewById(R.id.et_email2);
+           // text.setText("");//(event.getParticipants().get(1));
 
             CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
             checkBox.setActivated(event.isAlarmSet());
             checkBox = (CheckBox) findViewById(R.id.checkBoxAlarm);
             checkBox.setActivated(event.isSecondAlarmSet());
-            checkBox = (CheckBox) findViewById(R.id.checkBoxSilent);
-            checkBox.setActivated(event.isThirdAlarmSet());
+           // checkBox = (CheckBox) findViewById(R.id.checkBoxSilent);
+            //checkBox.setActivated(event.isThirdAlarmSet());
 
         }
     }
