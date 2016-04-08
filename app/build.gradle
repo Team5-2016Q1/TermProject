@@ -18,6 +18,7 @@ android {
         }
     }
 }
+//people need this
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
