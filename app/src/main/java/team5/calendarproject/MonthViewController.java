@@ -41,6 +41,8 @@ public class MonthViewController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.month_view);
 
+        setupMonth(Calendar.MONTH);
+
         addEventButton = (Button) findViewById(R.id.monthly_add_event_button);
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +77,6 @@ public class MonthViewController extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         makeEventsList();
-        setupMonth(Calendar.MONTH);
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
