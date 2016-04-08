@@ -45,6 +45,8 @@ public class AddEventController extends AppCompatActivity {
         btnCreate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 createNewEvent();
+                Intent back1 = new Intent(getApplicationContext(),MonthViewController.class);
+                startActivity(back1);
             }
         });
 
@@ -137,6 +139,8 @@ public class AddEventController extends AppCompatActivity {
 
         db.insertEventRow(title, date, time, endTime, color, alarm1, alarm2, alarm3, repeating,
                 location, participants);
+
+
 
         //Maybe go to event view
         toast("Event " + title + " saved.");

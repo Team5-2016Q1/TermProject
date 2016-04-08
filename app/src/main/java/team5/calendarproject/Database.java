@@ -196,6 +196,7 @@ public final class Database {
         return c;
     }
 
+
     public void deleteAllEventRows() {
         Cursor c = getAllEventRows();
         long rowId = c.getColumnIndexOrThrow(EventEntries._ID);

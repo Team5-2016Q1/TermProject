@@ -2,6 +2,7 @@ package team5.calendarproject;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +28,11 @@ public class MonthViewController extends AppCompatActivity {
     private Database db;
     private int weekIDs[];
     private int dayIDs[];
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,9 @@ public class MonthViewController extends AppCompatActivity {
 
         //todo: on left and right button click, setupMonth(Calendar.MONTH+1);
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -80,27 +93,27 @@ public class MonthViewController extends AppCompatActivity {
         int totalDaysInMonth = CalendarDates.values()[m].getNumberOfDays(Calendar.YEAR);
         int setupDayNumber = 1;
 
-        dayIDs = new int[] {R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
+        dayIDs = new int[]{R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
                 R.id.weekly_wednesday, R.id.weekly_thursday, R.id.weekly_friday, R.id.weekly_saturday};
 
-        weekIDs = new int[] {R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
+        weekIDs = new int[]{R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
                 R.id.monthly_week_4, R.id.monthly_week_5, R.id.monthly_week_6};
 
         View workingDay;
 
-        monthName = (TextView)findViewById(R.id.monthly_view_month_name);
+        monthName = (TextView) findViewById(R.id.monthly_view_month_name);
         //set to current month name
         monthName.setText(CalendarDates.values()[m].toString());
 
         //TODO: figure out to properly do this
-        for(int weekNumber = 0; weekNumber < 6; weekNumber++) {
-            for(int dayNumber = 0; dayNumber < 7; dayNumber++) {
+        for (int weekNumber = 0; weekNumber < 6; weekNumber++) {
+            for (int dayNumber = 0; dayNumber < 7; dayNumber++) {
                 workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
 
-                TextView dayName = (TextView)workingDay.findViewById(R.id.day_name);
+                TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                 dayName.setText("" + setupDayNumber);
                 setupDayNumber++;
-                if(setupDayNumber == totalDaysInMonth) setupDayNumber = 1;
+                if (setupDayNumber == totalDaysInMonth) setupDayNumber = 1;
             }
         }
 
@@ -109,7 +122,7 @@ public class MonthViewController extends AppCompatActivity {
     private void makeEventsList() {
         Cursor c = db.getAllEventRows();
         this.events = new ArrayList<>();
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             do {
                 boolean alarm1 = false;
                 if (c.getInt(6) != 0) {
@@ -154,7 +167,7 @@ public class MonthViewController extends AppCompatActivity {
                 //     .setColor(getColor)
 
 
-                if(c.isLast()) return;
+                if (c.isLast()) return;
 
                 c.moveToNext();
 
@@ -171,23 +184,22 @@ public class MonthViewController extends AppCompatActivity {
     }
 
     /**
-     *
      * day the day the event is on
      * month the month the event is on
-     *
      */
     private void goToEventView() {
-        if(events.isEmpty()) {
+        if (events.isEmpty()) {
             toast("No event found");
             return;
         }
         startActivity(
-                new Intent(this, EventViewController.class).putExtra("Event", events.get(0))
+                new Intent(this, EventList.class)
+        //new Intent(this, EventViewController.class).putExtra("Event", events.get(0))
         );
     }
 
     //ADD EVENT
-    public void goToAddEventView(){
+    public void goToAddEventView() {
         startActivity(
                 new Intent(this, AddEventController.class)
         );
@@ -197,4 +209,43 @@ public class MonthViewController extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "MonthViewController Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://team5.calendarproject/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "MonthViewController Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://team5.calendarproject/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }
