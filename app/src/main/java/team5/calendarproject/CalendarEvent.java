@@ -9,7 +9,7 @@ public class CalendarEvent extends Event {
     private ArrayList<String> participants;
     private String location;
     private int endTime;
-    private Repeating repeats;
+    private int repeats;
     private boolean secondAlarm;
     private boolean thirdAlarm;
 
@@ -21,7 +21,7 @@ public class CalendarEvent extends Event {
         this.location = location;
         secondAlarm = alarm2;
         thirdAlarm = alarm3;
-        //this.repeats = repeats;
+        this.repeats = repeats;
     }
 
     public ArrayList<String> getParticipants() {
@@ -64,11 +64,11 @@ public class CalendarEvent extends Event {
         this.endTime = endTime;
     }
 
-    public Repeating getRepeats() {
+    public int getRepeats() {
         return repeats;
     }
 
-    public void setRepeats(Repeating repeats) {
+    public void setRepeats(int repeats) {
         this.repeats = repeats;
     }
 

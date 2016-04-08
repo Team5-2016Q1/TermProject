@@ -44,6 +44,13 @@ public class EventViewController extends AppCompatActivity {
             }
         });
 
+        btnEdit = (Button) findViewById(R.id.editButton);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                updateInstance(view);
+            }
+        });
+
         final Button shareEventButton = (Button)findViewById(R.id.invitePartButtons);
         shareEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,10 +106,41 @@ public class EventViewController extends AppCompatActivity {
         //Log.d("ID in ViewContact", "" + User_ID);
     }
 
-    private void updateEvent() {
+
+    private void updateInstance(View v) {
+        EditText text = (EditText) findViewById(R.id.et_EventTitle);
+        event.setTitle(text.getText().toString());
+        text = (EditText) findViewById(R.id.et_EventDate);
+        event.setDate(text.getText().toString());
+        text = (EditText) findViewById(R.id.et_EventStartTime);
+        event.setTime(new Integer(text.getText().toString()));
+        text = (EditText) findViewById(R.id.et_EventEndTime);
+        event.setEndTime( new Integer(text.getText().toString()) );
+        text = (EditText) findViewById(R.id.et_Location);
+        event.setLocation(text.getText().toString());
+        text = (EditText) findViewById(R.id.et_email1);
+        String partic = text.getText().toString();
+        text = (EditText) findViewById(R.id.editText8);
+        partic += " " + text.getText().toString();
+
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
+        event.setAlarm(checkBox.isChecked());
+        checkBox = (CheckBox) findViewById(R.id.checkBoxAlarm);
+        event.setSecondAlarm(checkBox.isChecked());
+        checkBox = (CheckBox) findViewById(R.id.checkBox3);
+        event.setThirdAlarm(checkBox.isChecked());
+        updateDBToo();
+        toast("Event Updated");
+        finish();
+    }
+
+    private void updateDBToo() {
+        int alarm = (event.isAlarmSet()? 1 : 0);
+        int alarm2 = (event.isSecondAlarmSet()? 1 : 0);
+        int alarm3 = (event.isThirdAlarmSet()? 1 : 0);
         //follow the Database method inputs passed from event. whatever. Fill out completely.
         db.updateEventRow(event.getDbIDNumber(), event.getTitle(), event.getDate(), event.getTime(), event.getEndTime(),
-                event.getColor(), event.getRepeats(), event.getLocation(), event.getParticipants());
+                event.getColor(), alarm, alarm2, alarm3, event.getRepeats(), event.getLocation(), event.getParticipantsAsString());
     }
 
     private void setUpTextBoxes() {
