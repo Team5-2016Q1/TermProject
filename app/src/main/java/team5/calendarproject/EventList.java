@@ -31,17 +31,17 @@ public class EventList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_list);
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });*/
+        });
     }
 
     @Override
@@ -65,16 +65,16 @@ public class EventList extends AppCompatActivity {
 
     //Needs to be changed
     public void ListEvents() {
-        final ArrayList<String> data = new ArrayList<String>();
-        final ArrayList<String>idInfo = new ArrayList<String>();
+        final ArrayList<String> data = new ArrayList<>();
+        final ArrayList<String>idInfo = new ArrayList<>();
 
-        Cursor cursor = db.getEventRow(1);
+        Cursor cursor = db.getAllEventRows();
 
-        if(cursor.moveToFirst()){
+        if(cursor != null){
             do{
-                data.add(cursor.getString(1));
-                idInfo.add(cursor.getString(0));
-            }while(cursor.moveToNext());
+                data.add(cursor.getString(1)); //This will be Event's Title
+                idInfo.add(new Integer(cursor.getInt(0)).toString()); //This will be the database RowID
+            }while( cursor.moveToNext() );
         }
         cursor.close();
 
