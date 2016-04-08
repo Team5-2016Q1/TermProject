@@ -21,7 +21,7 @@ public class CalendarEvent extends Event {
         this.location = location;
         secondAlarm = alarm2;
         thirdAlarm = alarm3;
-        this.repeats = repeats;
+        //this.repeats = repeats;
     }
 
     public ArrayList<String> getParticipants() {

@@ -58,7 +58,7 @@ public class EventViewController extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
                 i.putExtra(Intent.EXTRA_EMAIL, new String[]{event.getParticipantsAsString()});
-                i.putExtra(Intent.EXTRA_SUBJECT, "You're invited to " + event.getTitle() +"!");
+                i.putExtra(Intent.EXTRA_SUBJECT, "You're invited to " + event.getTitle() + "!");
                 i.putExtra(Intent.EXTRA_TEXT, "Change this to be Event title, event start time, event end time, and event location ");
                 try {
                     startActivity(Intent.createChooser(i, "Send mail..."));
@@ -107,6 +107,8 @@ public class EventViewController extends AppCompatActivity {
     }
 
 
+    //TODO: EndTime is not updating properly ... fix it?
+
     private void updateInstance(View v) {
         EditText text = (EditText) findViewById(R.id.et_EventTitle);
         event.setTitle(text.getText().toString());
@@ -114,7 +116,8 @@ public class EventViewController extends AppCompatActivity {
         event.setDate(text.getText().toString());
         text = (EditText) findViewById(R.id.et_EventStartTime);
         event.setTime(new Integer(text.getText().toString()));
-        text = (EditText) findViewById(R.id.et_EventEndTime);
+        text = (EditText) findViewById(R.id.et_ViewEvent_EndTime);
+        System.out.println(text.getText().toString());
         event.setEndTime( new Integer(text.getText().toString()) );
         text = (EditText) findViewById(R.id.et_Location);
         event.setLocation(text.getText().toString());
@@ -152,7 +155,7 @@ public class EventViewController extends AppCompatActivity {
             text.setText(event.getDate());
             text = (EditText) findViewById(R.id.et_EventStartTime);
             text.setText("" + event.getTime());
-            text = (EditText) findViewById(R.id.et_EventEndTime);
+            text = (EditText) findViewById(R.id.et_ViewEvent_EndTime);
             text.setText("" + event.getEndTime());
             text = (EditText) findViewById(R.id.et_Location);
             text.setText(event.getLocation());

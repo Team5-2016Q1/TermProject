@@ -74,7 +74,7 @@ public class AddEventController extends AppCompatActivity {
         etEventDate = (EditText) findViewById(R.id.et_EventDate);
         etEventLocation = (EditText) findViewById(R.id.et_Location);
         etEventStartTime = (EditText) findViewById(R.id.et_EventStartTime);
-        etEventEndTime = (EditText) findViewById(R.id.et_EventEndTime);
+        etEventEndTime = (EditText) findViewById(R.id.et_AddEvent_EndTime);
         etEmail1 = (EditText) findViewById(R.id.et_email1);
         etEmail2 = (EditText) findViewById(R.id.et_email2);
         alarm1 = (CheckBox) findViewById(R.id.checkBoxEmail);
@@ -98,25 +98,21 @@ public class AddEventController extends AppCompatActivity {
 
     public void createNewEvent() {
 
-        String title;
-        String date;
-        int time;
-        int endTime;
-        String color;
+        String title = etEventTitle.getText().toString();
+        String date = etEventDate.getText().toString();
+        int time = new Integer(etEventStartTime.getText().toString());
+        int endTime = new Integer(etEventEndTime.getText().toString());
+        String color = "blue";
         int alarm1;
         int alarm2;
         int alarm3;
-        int repeating;
-        String location;
-        String participants;
+        int repeating = 0;
+        String location = etEventLocation.getText().toString();
+        String participants= etEmail1.getText().toString() + " " + etEmail2.getText().toString();
+
 
         //TODO: initialize each item, uncomment db.insertEventRow
 
-        title = etEventTitle.getText().toString();
-        date = etEventDate.getText().toString();
-        time = new Integer(etEventStartTime.getText().toString());
-        endTime = new Integer(etEventEndTime.getText().toString());
-        color = "blue";
         if(this.alarm1.isChecked() == true) {
             alarm1 = 1;
         } else {
@@ -132,15 +128,9 @@ public class AddEventController extends AppCompatActivity {
         } else {
             alarm3 = 0;
         }
-        repeating = 0;
-        location = etEventLocation.getText().toString();
-        participants = etEmail1.getText().toString() + " " + etEmail2.getText().toString();
-
 
         db.insertEventRow(title, date, time, endTime, color, alarm1, alarm2, alarm3, repeating,
                 location, participants);
-
-
 
         //Maybe go to event view
         toast("Event " + title + " saved.");

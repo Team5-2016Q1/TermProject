@@ -10,15 +10,15 @@ abstract class Event  implements Serializable {
     private String date;
     private String title;
     private String color;
-    boolean alarm;
+    private boolean alarm;
     private final int DB_ID_NUMBER;
 
-    public Event(int time, String date, String title, String color, boolean alarm, int dbIDNumber) {
+    public Event(int time, String date, String title, String color, boolean alarm1, int dbIDNumber) {
         this.time = time;
         this.date = date;
         this.title = title;
         this.color = color;
-        this.alarm = alarm;
+        this.alarm = alarm1;
         this.DB_ID_NUMBER = dbIDNumber;
     }
 
@@ -54,7 +54,7 @@ abstract class Event  implements Serializable {
         this.color = color;
     }
 
-    public Boolean isAlarmSet() {
+    public boolean isAlarmSet() {
         return alarm;
     }
 
