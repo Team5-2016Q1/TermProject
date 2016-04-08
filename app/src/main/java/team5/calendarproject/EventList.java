@@ -15,28 +15,52 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class EventList extends AppCompatActivity {
 
-    Database eventdb;
+    Database db;
     String findByThisString;
     String returnId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        openDB();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
+    }
+
+    @Override
+    //close db before activity exit
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ListEvents();
+    }
+
+    //instantiates the database and recovers User_ID from the shared preference file
+    private void openDB() {
+        db = new Database(this);
+        db.open();
     }
 
     //Needs to be changed
@@ -44,7 +68,7 @@ public class EventList extends AppCompatActivity {
         final ArrayList<String> data = new ArrayList<String>();
         final ArrayList<String>idInfo = new ArrayList<String>();
 
-        Cursor cursor = eventdb.getEventRow(1);
+        Cursor cursor = db.getEventRow(1);
 
         if(cursor.moveToFirst()){
             do{
