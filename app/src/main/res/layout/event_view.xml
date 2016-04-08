@@ -9,16 +9,145 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="team5.calendarproject.EventViewController">
 
-    <EditText
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Event Title"
-        android:inputType="text"
-        android:id="@+id/et_EventTitle"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:text="Event Title"
-        android:layout_alignEnd="@+id/et_EventDate" />
+        android:id="@+id/scrollView2"
+        android:layout_above="@+id/editButton"
+        android:layout_alignParentEnd="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Event Title"
+                android:inputType="text"
+                android:id="@+id/et_EventTitle"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:text="Event Title"
+                android:layout_alignEnd="@+id/et_EventDate" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/et_EventDate"
+                android:layout_below="@+id/et_EventTitle"
+                android:layout_alignParentStart="true"
+                android:text="Event Date" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Location"
+                android:inputType="textPostalAddress"
+                android:ems="10"
+                android:id="@+id/et_Location"
+                android:text="Location"
+                android:layout_below="@+id/et_EventEndTime"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="End Time"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/et_EventEndTime"
+                android:text="End Time"
+                android:layout_below="@+id/et_EventStartTime"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Start Time"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/et_EventStartTime"
+                android:text="Start Time"
+                android:layout_below="@+id/et_EventDate"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Participants"
+                android:id="@+id/tv_participants"
+                android:layout_below="@+id/et_Location"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/et_email1"
+                android:layout_below="@+id/tv_participants"
+                android:text="Email1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/editText8"
+                android:layout_below="@+id/et_email1"
+                android:layout_alignParentStart="true"
+                android:text="Email2" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invite Participants"
+                android:id="@+id/invitePartButtons"
+                android:layout_alignTop="@+id/et_email1"
+                android:layout_toEndOf="@+id/et_email1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Reminders"
+                android:id="@+id/textView2"
+                android:layout_below="@+id/editText8"
+                android:layout_alignParentStart="true" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Reminder"
+                android:id="@+id/checkBoxEmail"
+                android:layout_below="@+id/textView2"
+                android:layout_alignParentStart="true"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alarm Reminder"
+                android:id="@+id/checkBoxAlarm"
+                android:layout_below="@+id/checkBoxEmail"
+                android:layout_alignParentStart="true"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Silent Reminder"
+                android:id="@+id/checkBox3"
+                android:layout_below="@+id/checkBoxAlarm"
+                android:layout_alignParentStart="true"
+                android:checked="false" />
+        </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:layout_width="wrap_content"
@@ -35,121 +164,5 @@
         android:id="@+id/deleteButton"
         android:layout_alignBottom="@+id/editButton"
         android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/et_EventDate"
-        android:layout_below="@+id/et_EventTitle"
-        android:layout_alignParentStart="true"
-        android:text="Event Date" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Location"
-        android:inputType="textPostalAddress"
-        android:ems="10"
-        android:id="@+id/et_Location"
-        android:text="Location"
-        android:layout_below="@+id/et_EventEndTime"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="End Time"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/et_EventEndTime"
-        android:text="End Time"
-        android:layout_below="@+id/et_EventStartTime"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Start Time"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/et_EventStartTime"
-        android:text="Start Time"
-        android:layout_below="@+id/et_EventDate"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Participants"
-        android:id="@+id/tv_participants"
-        android:layout_below="@+id/et_Location"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/et_email1"
-        android:layout_below="@+id/tv_participants"
-        android:text="Email1" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/editText8"
-        android:layout_below="@+id/et_email1"
-        android:layout_alignParentStart="true"
-        android:text="Email2" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Invite Participants"
-        android:id="@+id/invitePartButtons"
-        android:layout_alignTop="@+id/et_email1"
-        android:layout_toEndOf="@+id/et_email1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Reminders"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/editText8"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email Reminder"
-        android:id="@+id/checkBoxEmail"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Alarm Reminder"
-        android:id="@+id/checkBoxAlarm"
-        android:layout_below="@+id/checkBoxEmail"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Silent Reminder"
-        android:id="@+id/checkBox3"
-        android:layout_below="@+id/checkBoxAlarm"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
 
 </RelativeLayout>

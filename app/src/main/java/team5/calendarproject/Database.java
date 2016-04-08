@@ -179,7 +179,7 @@ public final class Database {
         newValues.put(EventEntries.REPEATING, repeating);
         newValues.put(EventEntries.LOCATION, location);
         newValues.put(EventEntries.PARTICIPANTS, participants);
-
+        //
         // Insert it into the database.
         return db.update(EventEntries.TABLE_NAME, newValues, where, null) != 0;
     }

@@ -99,6 +99,12 @@ public class EventViewController extends AppCompatActivity {
         //Log.d("ID in ViewContact", "" + User_ID);
     }
 
+    private void updateEvent() {
+        //follow the Database method inputs passed from event. whatever. Fill out completely.
+        db.updateEventRow(event.getDbIDNumber(), event.getTitle(), event.getDate(), event.getTime(), event.getEndTime(),
+                event.getColor(), event.getRepeats(), event.getLocation(), event.getParticipants());
+    }
+
     private void setUpTextBoxes() {
         if(event != null) {
             EditText text = (EditText) findViewById(R.id.et_EventTitle);
