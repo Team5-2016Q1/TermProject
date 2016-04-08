@@ -113,8 +113,7 @@
         android:layout_height="wrap_content"
         android:text="Invite Participants"
         android:id="@+id/invitePartButtons"
-        android:layout_alignBaseline="@+id/checkBoxAlarm"
-        android:layout_alignBottom="@+id/checkBoxAlarm"
+        android:layout_alignTop="@+id/et_email1"
         android:layout_toEndOf="@+id/et_email1" />
 
     <TextView
