@@ -1,6 +1,7 @@
 package team5.calendarproject;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class EventViewController extends AppCompatActivity {
 
@@ -27,11 +30,10 @@ public class EventViewController extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null)
         {
-            db = new Database(this);
-            db.open();
-            event = (CalendarEvent)extras.getSerializable("Event");
-            Log.d("Event received", event.getTitle());
+            Integer id = new Integer( (String)extras.getSerializable("id") );
+            Cursor c = db.getEventRow(id);
 
+            Log.d("Event received", event.getTitle());
             setUpTextBoxes();
         }
 
@@ -120,6 +122,42 @@ public class EventViewController extends AppCompatActivity {
             checkBox.setActivated(event.isThirdAlarmSet());
 
         }
+    }
+
+    private void makeEvent(Cursor c) {
+        boolean alarm1 = false;
+        if (c.getInt(6) != 0) {
+            alarm1 = true;
+        }
+
+        boolean alarm2 = false;
+        if (c.getInt(7) != 0) {
+            alarm2 = true;
+        }
+
+        boolean alarm3 = false;
+        if (c.getInt(8) != 0) {
+            alarm3 = true;
+        }
+
+        ArrayList<String> participants = new ArrayList<>();
+        String[] result = c.getString(11).split(" ");
+        for (int x = 0; x < result.length; x++)
+            participants.add(result[x]);
+
+                /*  0     1     2     3       4        5      6       7       8
+                 * _ID, TITLE, DATE, TIME, END_TIME, COLOR, ALARM1, ALARM2, ALARM3,
+                 *                   9         10          11         12
+                 *               REPEATING, LOCATION, PARTICIPANTS, APP_ID
+                 */
+        // int idNumber, int time, int endTime, String date, String title,
+        // String color, Boolean alarm1, Boolean alarm2, Boolean alarm3,
+        // ArrayList<String> participants, String location, int repeats
+        event = new CalendarEvent(
+                        c.getInt(0), c.getInt(3), c.getInt(4), c.getString(2),
+                        c.getString(1), c.getString(5), alarm1, alarm2, alarm3,
+                        participants, c.getString(10), c.getInt(9));
+
     }
 
     public void editInstance(View v) {
