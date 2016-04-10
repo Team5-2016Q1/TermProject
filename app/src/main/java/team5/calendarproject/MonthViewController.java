@@ -12,31 +12,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
-    private Database db;
-
-    private Button      addEventButton;
-    private Button      viewEventButton;
-    private TextView    nextMonthButton;
-    private TextView    prevMonthButton;
-    private TextView    monthName;
-
-    private int         weekIDs[];
-    private int         dayIDs[];
-
+    private Database                    db;
+    private Button                      addEventButton;
+    private Button                      viewEventButton;
+    private TextView                    nextMonthButton;
+    private TextView                    prevMonthButton;
+    private TextView                    monthName;
+    private int                         weekIDs[];
+    private int                         dayIDs[];
     private ArrayList<CalendarEvent>    events;
     private ArrayList<Task>             tasks;
-
-    private int     theMonth;
-    private int     theYear;
+    private int                         theMonth;
+    private int                         theYear;
 
 
     @Override
@@ -81,7 +73,7 @@ public class MonthViewController extends AppCompatActivity {
         nextMonthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(theMonth == 12) {
+                if (theMonth == 12) {
                     theMonth = 1;
                     theYear = theYear + 1;
                 } else
@@ -104,8 +96,9 @@ public class MonthViewController extends AppCompatActivity {
         super.onResume();
         theMonth = Calendar.MONTH;
         theYear = Calendar.YEAR;
-        makeEventsList();
+        setupIDvalues();
         setupMonth();
+        makeEventsList();
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
@@ -117,18 +110,18 @@ public class MonthViewController extends AppCompatActivity {
         db.open();
     }
 
-    //testing something.....
-
-    private void setupMonth() {
-
-        int totalDaysInMonth = CalendarDates.values()[theMonth].getNumberOfDays(Calendar.YEAR);
-        int setupDayNumber = 1;
-
+    private void setupIDvalues() {
         dayIDs = new int[]{R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
                 R.id.weekly_wednesday, R.id.weekly_thursday, R.id.weekly_friday, R.id.weekly_saturday};
 
         weekIDs = new int[]{R.id.monthly_week_1, R.id.monthly_week_2, R.id.monthly_week_3,
                 R.id.monthly_week_4, R.id.monthly_week_5, R.id.monthly_week_6};
+    }
+
+    private void setupMonth() {
+
+        int totalDaysInMonth    = CalendarDates.values()[theMonth].getNumberOfDays(Calendar.YEAR);
+        int setupDayNumber      = 1;
 
         View workingDay;
 
@@ -161,9 +154,10 @@ public class MonthViewController extends AppCompatActivity {
         } else
             xFactor = 0;
 
-        int subtractDay = xFactor - 1;
-        int weekNumber = 0;
-        int dayNumber = 0;
+        int         subtractDay     = xFactor - 1;
+        int         weekNumber      = 0;
+        int         dayNumber       = 0;
+        boolean     nextMonthsDays  = false;
 
         //This loop goes over any days of previous month on the first week
         for( ; weekNumber < 1; weekNumber++) { //only first week
@@ -179,8 +173,6 @@ public class MonthViewController extends AppCompatActivity {
             }
         }
 
-        boolean nextMonthsDays = false;
-        //TODO: figure out to properly do this
         for ( ; weekNumber < 6; weekNumber++) {
             for ( ; dayNumber < 7; dayNumber++) {
                 workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
@@ -205,19 +197,13 @@ public class MonthViewController extends AppCompatActivity {
         if (c != null && c.moveToFirst()) {
             do {
                 boolean alarm1 = false;
-                if (c.getInt(6) != 0) {
-                    alarm1 = true;
-                }
+                if (c.getInt(6) != 0) alarm1 = true;
 
                 boolean alarm2 = false;
-                if (c.getInt(7) != 0) {
-                    alarm2 = true;
-                }
+                if (c.getInt(7) != 0) alarm2 = true;
 
                 boolean alarm3 = false;
-                if (c.getInt(8) != 0) {
-                    alarm3 = true;
-                }
+                if (c.getInt(8) != 0) alarm3 = true;
 
                 ArrayList<String> participants = new ArrayList<>();
                 String[] result = c.getString(11).split(" ");
@@ -245,7 +231,9 @@ public class MonthViewController extends AppCompatActivity {
                 //     textView event1 = wD.findViewByID
                 //     event1.setVisible(true)
                 //     .setColor(getColor)
+                if(c.getString(4).contains("" + theMonth)) {
 
+                }
 
                 if (c.isLast()) return;
 
@@ -274,7 +262,7 @@ public class MonthViewController extends AppCompatActivity {
         }
         startActivity(
                 new Intent(this, EventList.class)
-        //new Intent(this, EventViewController.class).putExtra("Event", events.get(0))
+                //new Intent(this, EventViewController.class).putExtra("Event", events.get(0))
         );
     }
 
