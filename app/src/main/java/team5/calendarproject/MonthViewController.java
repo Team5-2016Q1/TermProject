@@ -21,19 +21,23 @@ import java.util.Calendar;
 
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
-    private Button addEventButton;
-    private Button viewEventButton;
-    private TextView monthName;
-    private ArrayList<CalendarEvent> events;
-    private ArrayList<Task> tasks;
     private Database db;
-    private int weekIDs[];
-    private int dayIDs[];
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+
+    private Button      addEventButton;
+    private Button      viewEventButton;
+    private TextView    nextMonthButton;
+    private TextView    prevMonthButton;
+    private TextView    monthName;
+
+    private int         weekIDs[];
+    private int         dayIDs[];
+
+    private ArrayList<CalendarEvent>    events;
+    private ArrayList<Task>             tasks;
+
+    private int     theMonth;
+    private int     theYear;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +64,32 @@ public class MonthViewController extends AppCompatActivity {
 
         //todo: on left and right button click, setupMonth(Calendar.MONTH+1);
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        prevMonthButton = (TextView) findViewById(R.id.month_view_previous_month);
+        prevMonthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(theMonth == 1) {
+                    theMonth = 12;
+                    theYear = theYear - 1;
+                } else
+                    theMonth = theMonth - 1;
+                setupMonth();
+            }
+        });
+
+        nextMonthButton = (TextView) findViewById(R.id.month_view_next_month);
+        nextMonthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(theMonth == 12) {
+                    theMonth = 1;
+                    theYear = theYear + 1;
+                } else
+                    theMonth = theMonth + 1;
+                setupMonth();
+            }
+        });
+
     }
 
     @Override
@@ -75,8 +102,10 @@ public class MonthViewController extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        theMonth = Calendar.MONTH;
+        theYear = Calendar.YEAR;
         makeEventsList();
-        setupMonth(Calendar.MONTH);
+        setupMonth();
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
@@ -90,9 +119,9 @@ public class MonthViewController extends AppCompatActivity {
 
     //testing something.....
 
-    private void setupMonth(int m) {
+    private void setupMonth() {
 
-        int totalDaysInMonth = CalendarDates.values()[m].getNumberOfDays(Calendar.YEAR);
+        int totalDaysInMonth = CalendarDates.values()[theMonth].getNumberOfDays(Calendar.YEAR);
         int setupDayNumber = 1;
 
         dayIDs = new int[]{R.id.weekly_sunday, R.id.weekly_monday, R.id.weekly_tuesday,
@@ -105,12 +134,12 @@ public class MonthViewController extends AppCompatActivity {
 
         monthName = (TextView) findViewById(R.id.monthly_view_month_name);
         //set to current month name
-        monthName.setText(CalendarDates.values()[m].toString());
+        monthName.setText(CalendarDates.values()[theMonth].toString());
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
         int daysInPreviousMonth =
-                CalendarDates.values()[(m==1? 12 : m-1)].getNumberOfDays((m==1? Calendar.YEAR-1 : Calendar.YEAR));
+                CalendarDates.values()[(theMonth==1? 12 : theMonth-1)].getNumberOfDays((theMonth==1? theYear-1 : theYear));
 
         //so now we have the day that the month starts on, the amount of days in the previous month
         //and the days in current month.
@@ -260,43 +289,4 @@ public class MonthViewController extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "MonthViewController Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://team5.calendarproject/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "MonthViewController Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://team5.calendarproject/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
 }
