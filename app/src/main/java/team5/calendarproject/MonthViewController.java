@@ -239,9 +239,13 @@ public class MonthViewController extends AppCompatActivity {
                 //     textView event1 = wD.findViewByID
                 //     event1.setVisible(true)
                 //     .setColor(getColor)
-                //if(c.getString(4).contains("" + theMonth)) {
+                /*String[] month_day_year = c.getString(2).split("/");
+                int month = new Integer(month_day_year[0]);
+                int day = new Integer(month_day_year[1]);
+                if(c.getString(4).contains("" + theMonth)) {
 
-                //}
+                    View dayView = findViewById(weekIDs[]).findViewById(dayIDs)
+                }*/
 
                 if (c.isLast()) return;
 
