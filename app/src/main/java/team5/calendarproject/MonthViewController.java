@@ -2,6 +2,7 @@ package team5.calendarproject;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,8 +42,6 @@ public class MonthViewController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.month_view);
 
-        setupMonth(Calendar.MONTH);
-
         addEventButton = (Button) findViewById(R.id.monthly_add_event_button);
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +76,7 @@ public class MonthViewController extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         makeEventsList();
+        setupMonth(Calendar.MONTH);
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
@@ -107,18 +107,67 @@ public class MonthViewController extends AppCompatActivity {
         //set to current month name
         monthName.setText(CalendarDates.values()[m].toString());
 
-        //TODO: figure out to properly do this
-        for (int weekNumber = 0; weekNumber < 6; weekNumber++) {
-            for (int dayNumber = 0; dayNumber < 7; dayNumber++) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_MONTH, 1);
+        int daysInPreviousMonth =
+                CalendarDates.values()[(m==1? 12 : m-1)].getNumberOfDays((m==1? Calendar.YEAR-1 : Calendar.YEAR));
+
+        //so now we have the day that the month starts on, the amount of days in the previous month
+        //and the days in current month.
+
+        //amount of days previous to what should be first day
+        int xFactor;
+        if(c.get(Calendar.DATE) == Calendar.MONDAY) {
+            xFactor = 1;
+        } else if(c.get(Calendar.DATE) == Calendar.TUESDAY) {
+            xFactor = 2;
+        } else if(c.get(Calendar.DATE) == Calendar.WEDNESDAY) {
+            xFactor = 3;
+        } else if(c.get(Calendar.DATE) == Calendar.THURSDAY) {
+            xFactor = 4;
+        } else if(c.get(Calendar.DATE) == Calendar.FRIDAY) {
+            xFactor = 5;
+        } else if(c.get(Calendar.DATE) == Calendar.SATURDAY) {
+            xFactor = 6;
+        } else
+            xFactor = 0;
+
+        int subtractDay = xFactor - 1;
+        int weekNumber = 0;
+        int dayNumber = 0;
+
+        //This loop goes over any days of previous month on the first week
+        for( ; weekNumber < 1; weekNumber++) { //only first week
+            for ( ; dayNumber < xFactor; dayNumber++) {
                 workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
 
                 TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
-                dayName.setText("" + setupDayNumber);
+                dayName.setBackgroundColor(Color.LTGRAY); //setting a day outside of current to light gray
+                dayName.setText("" + (daysInPreviousMonth - subtractDay ));
                 setupDayNumber++;
+                subtractDay--;
                 if (setupDayNumber == totalDaysInMonth) setupDayNumber = 1;
             }
         }
 
+        boolean nextMonthsDays = false;
+        //TODO: figure out to properly do this
+        for ( ; weekNumber < 6; weekNumber++) {
+            for ( ; dayNumber < 7; dayNumber++) {
+                workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
+
+                TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
+                dayName.setText("" + setupDayNumber);
+                if(nextMonthsDays) dayName.setBackgroundColor(Color.LTGRAY);
+                setupDayNumber++;
+                if (setupDayNumber == totalDaysInMonth){
+                    setupDayNumber = 1;
+                    nextMonthsDays = true;
+                }
+            }
+        }
+
+        //PHEW
     }
 
     private void makeEventsList() {

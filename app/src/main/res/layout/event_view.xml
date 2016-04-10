@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="team5.calendarproject.EventViewController">
 
     <EditText
@@ -19,22 +15,6 @@
         android:layout_alignParentStart="true"
         android:text="Event Title"
         android:layout_alignEnd="@+id/et_EventDate" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        android:id="@+id/editButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:id="@+id/deleteButton"
-        android:layout_alignBottom="@+id/editButton"
-        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -151,5 +131,33 @@
         android:layout_below="@+id/checkBoxAlarm"
         android:layout_alignParentStart="true"
         android:checked="false" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit"
+            android:id="@+id/editButton"
+            android:textColor="#FFFFFFFF"
+            android:background="#ff1904c0"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:id="@+id/deleteButton"
+            android:textColor="#FFFFFFFF"
+            android:background="#ff1904c0"/>
+    </LinearLayout>
 
 </RelativeLayout>
