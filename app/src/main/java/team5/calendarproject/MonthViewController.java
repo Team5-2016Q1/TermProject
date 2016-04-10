@@ -57,6 +57,7 @@ public class MonthViewController extends AppCompatActivity {
         //todo: on left and right button click, setupMonth(Calendar.MONTH+1);
 
         prevMonthButton = (TextView) findViewById(R.id.month_view_previous_month);
+        prevMonthButton.setText("<");
         prevMonthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -231,9 +232,9 @@ public class MonthViewController extends AppCompatActivity {
                 //     textView event1 = wD.findViewByID
                 //     event1.setVisible(true)
                 //     .setColor(getColor)
-                if(c.getString(4).contains("" + theMonth)) {
+                //if(c.getString(4).contains("" + theMonth)) {
 
-                }
+                //}
 
                 if (c.isLast()) return;
 
