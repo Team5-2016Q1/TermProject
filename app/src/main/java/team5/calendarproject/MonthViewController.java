@@ -61,8 +61,8 @@ public class MonthViewController extends AppCompatActivity {
         prevMonthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(theMonth == 1) {
-                    theMonth = 12;
+                if(theMonth == Calendar.JANUARY) {
+                    theMonth = Calendar.DECEMBER;
                     theYear = theYear - 1;
                 } else
                     theMonth = theMonth - 1;
@@ -74,8 +74,8 @@ public class MonthViewController extends AppCompatActivity {
         nextMonthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (theMonth == 12) {
-                    theMonth = 1;
+                if (theMonth == Calendar.DECEMBER) {
+                    theMonth = Calendar.JANUARY;
                     theYear = theYear + 1;
                 } else
                     theMonth = theMonth + 1;
@@ -133,7 +133,7 @@ public class MonthViewController extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
         int daysInPreviousMonth =
-                CalendarDates.values()[(theMonth==1? 12 : theMonth-1)].getNumberOfDays((theMonth==1? theYear-1 : theYear));
+                CalendarDates.values()[(theMonth==Calendar.JANUARY? Calendar.DECEMBER : theMonth-1)].getNumberOfDays((theMonth==Calendar.JANUARY? theYear-1 : theYear));
 
         //so now we have the day that the month starts on, the amount of days in the previous month
         //and the days in current month.
