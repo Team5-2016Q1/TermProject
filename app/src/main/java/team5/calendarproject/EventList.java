@@ -12,11 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class EventList extends AppCompatActivity {
 
@@ -86,8 +83,8 @@ public class EventList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String itemSelected = "You Selected " + String.valueOf(parent.getItemAtPosition(position));
-                Toast.makeText(EventList.this, itemSelected, Toast.LENGTH_SHORT).show();
+                //String itemSelected = "You Selected " + String.valueOf(parent.getItemAtPosition(position));
+                //Toast.makeText(EventList.this, itemSelected, Toast.LENGTH_SHORT).show();
                 Intent next = new Intent(getApplicationContext(), EventViewController.class);
                 findByThisString = String.valueOf(parent.getItemAtPosition(position));
                 int i = 0;
