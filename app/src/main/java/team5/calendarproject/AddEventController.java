@@ -14,6 +14,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.Calendar;
+
 public class AddEventController extends AppCompatActivity {
     private Button btnCreate, btnCancel;
     private EditText etEventTitle, etEventDate, etEventLocation, etEventEndTime, etEventStartTime,
@@ -21,40 +23,26 @@ public class AddEventController extends AppCompatActivity {
     private CheckBox alarm1, alarm2, alarm3;
     private Database db;
 
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_event_view);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
 
         makeButtonsWork();
 
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
-        //Cancel();
         btnCreate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 createNewEvent();
-                Intent back1 = new Intent(getApplicationContext(),MonthViewController.class);
-                startActivity(back1);
+                finish();
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(getApplicationContext(),MonthViewController.class);
-                startActivity(back);
+                finish();
             }
         });
     }
@@ -62,9 +50,20 @@ public class AddEventController extends AppCompatActivity {
     private void openDB() {
         db = new Database(this);
         db.open();
-        //User_ID = getSharedPreferences("loginPrefs", MODE_PRIVATE).getInt("ID", -1);
-        //Log.d("ID in ViewContact", "" + User_ID);
     }
+
+    @Override
+    //close db before activity exit
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 
     private void makeButtonsWork() {
 
@@ -87,14 +86,11 @@ public class AddEventController extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(getApplicationContext(),MonthViewController.class);
+                Intent back = new Intent(getApplicationContext(), MonthViewController.class);
                 startActivity(back);
             }
         });
     }
-
-
-
 
     public void createNewEvent() {
 
@@ -134,47 +130,6 @@ public class AddEventController extends AppCompatActivity {
 
         //Maybe go to event view
         toast("Event " + title + " saved.");
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "AddEventController Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://team5.calendarproject/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "AddEventController Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://team5.calendarproject/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 
     private void toast(String description) {

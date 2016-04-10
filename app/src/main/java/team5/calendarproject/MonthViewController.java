@@ -54,8 +54,6 @@ public class MonthViewController extends AppCompatActivity {
             }
         });
 
-        //todo: on left and right button click, setupMonth(Calendar.MONTH+1);
-
         prevMonthButton = (TextView) findViewById(R.id.month_view_previous_month);
         prevMonthButton.setText("<");
         prevMonthButton.setOnClickListener(new View.OnClickListener() {
@@ -168,11 +166,11 @@ public class MonthViewController extends AppCompatActivity {
             if(weekNumber == 0) {
                 for (; dayNumber < dayShift; dayNumber++) {
                     workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
+                    workingDay.setBackgroundColor(Color.LTGRAY);
 
                     TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                     dayName.setText("" + (daysInPreviousMonth - subtractDay));
                     //setting a day outside of current to light gray
-                    dayName.setBackgroundColor(Color.LTGRAY);
 
                     subtractDay--;
                 }
@@ -180,13 +178,13 @@ public class MonthViewController extends AppCompatActivity {
 
             for ( ; dayNumber < 7; dayNumber++) {
                 workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
+                if(nextMonthsDays)
+                    workingDay.setBackgroundColor(Color.LTGRAY);
+                else
+                    workingDay.setBackgroundColor(Color.WHITE);
 
                 TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                 dayName.setText("" + setupDayNumber);
-                if(nextMonthsDays)
-                    dayName.setBackgroundColor(Color.LTGRAY);
-                else
-                    dayName.setBackgroundColor(Color.WHITE);
 
                 setupDayNumber++;
                 if (setupDayNumber == totalDaysInMonth){
@@ -204,14 +202,11 @@ public class MonthViewController extends AppCompatActivity {
         this.events = new ArrayList<>();
         if (c != null && c.moveToFirst()) {
             do {
-                boolean alarm1 = false;
-                if (c.getInt(6) != 0) alarm1 = true;
+                boolean alarm1 = c.getInt(6) != 0;
 
-                boolean alarm2 = false;
-                if (c.getInt(7) != 0) alarm2 = true;
+                boolean alarm2 = c.getInt(7) != 0;
 
-                boolean alarm3 = false;
-                if (c.getInt(8) != 0) alarm3 = true;
+                boolean alarm3 = c.getInt(8) != 0;
 
                 ArrayList<String> participants = new ArrayList<>();
                 String[] result = c.getString(11).split(" ");

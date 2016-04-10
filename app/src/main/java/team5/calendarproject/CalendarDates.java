@@ -14,7 +14,7 @@ public enum CalendarDates {
     private int daysInMonth;
     private GregorianCalendar cal;
 
-    private CalendarDates(int days) {
+    CalendarDates(int days) {
         cal = new GregorianCalendar();
         this.daysInMonth = days;
     }
@@ -67,13 +67,6 @@ public enum CalendarDates {
         }
 
         return daysInMonth;
-    }
-
-    public Date firstDayOfMonth(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.DATE, 1);
-        return calendar.getTime();
     }
 
 }
