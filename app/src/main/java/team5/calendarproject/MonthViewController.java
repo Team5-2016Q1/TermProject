@@ -120,67 +120,74 @@ public class MonthViewController extends AppCompatActivity {
     }
 
     private void setupMonth() {
-
-        int totalDaysInMonth    = CalendarDates.values()[theMonth].getNumberOfDays(Calendar.YEAR);
-        int setupDayNumber      = 1;
-
-        View workingDay;
-
         monthName = (TextView) findViewById(R.id.monthly_view_month_name);
-        //set to current month name
+        //set to calendar current month name
         monthName.setText(CalendarDates.values()[theMonth].toString());
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
         int daysInPreviousMonth =
-                CalendarDates.values()[(theMonth==Calendar.JANUARY? Calendar.DECEMBER : theMonth-1)].getNumberOfDays((theMonth==Calendar.JANUARY? theYear-1 : theYear));
+                CalendarDates.values()[
+                        (theMonth==Calendar.JANUARY? Calendar.DECEMBER : theMonth-1)
+                    ].getNumberOfDays(
+                            (theMonth==Calendar.JANUARY? theYear-1 : theYear)
+                        );
 
         //so now we have the day that the month starts on, the amount of days in the previous month
         //and the days in current month.
 
         //amount of days previous to what should be first day
-        int xFactor;
+        int dayShift;
         if(c.get(Calendar.DATE) == Calendar.MONDAY) {
-            xFactor = 1;
+            dayShift = 1;
         } else if(c.get(Calendar.DATE) == Calendar.TUESDAY) {
-            xFactor = 2;
+            dayShift = 2;
         } else if(c.get(Calendar.DATE) == Calendar.WEDNESDAY) {
-            xFactor = 3;
+            dayShift = 3;
         } else if(c.get(Calendar.DATE) == Calendar.THURSDAY) {
-            xFactor = 4;
+            dayShift = 4;
         } else if(c.get(Calendar.DATE) == Calendar.FRIDAY) {
-            xFactor = 5;
+            dayShift = 5;
         } else if(c.get(Calendar.DATE) == Calendar.SATURDAY) {
-            xFactor = 6;
+            dayShift = 6;
         } else
-            xFactor = 0;
+            dayShift = 0;
 
-        int         subtractDay     = xFactor - 1;
-        int         weekNumber      = 0;
-        int         dayNumber       = 0;
-        boolean     nextMonthsDays  = false;
+        int     totalDaysInMonth  = CalendarDates.values()[theMonth].getNumberOfDays(theYear);
+        int     setupDayNumber    = 1;
+        int     subtractDay       = dayShift - 1;
+        int     weekNumber        = 0;
+        int     dayNumber         = 0;
+        boolean nextMonthsDays    = false;
+        View    workingDay;
 
         //This loop goes over any days of previous month on the first week
-        for( ; weekNumber < 1; weekNumber++) { //only first week
-            for ( ; dayNumber < xFactor; dayNumber++) {
-                workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
+        for( ; weekNumber < 6; weekNumber++) {
 
-                TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
-                dayName.setBackgroundColor(Color.LTGRAY); //setting a day outside of current to light gray
-                dayName.setText("" + (daysInPreviousMonth - subtractDay ));
-                setupDayNumber++;
-                subtractDay--;
-                if (setupDayNumber == totalDaysInMonth) setupDayNumber = 1;
+            //only first week
+            if(weekNumber == 0) {
+                for (; dayNumber < dayShift; dayNumber++) {
+                    workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
+
+                    TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
+                    dayName.setText("" + (daysInPreviousMonth - subtractDay));
+                    //setting a day outside of current to light gray
+                    dayName.setBackgroundColor(Color.LTGRAY);
+
+                    subtractDay--;
+                }
             }
-        }
 
-        for ( ; weekNumber < 6; weekNumber++) {
             for ( ; dayNumber < 7; dayNumber++) {
                 workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
 
                 TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                 dayName.setText("" + setupDayNumber);
-                if(nextMonthsDays) dayName.setBackgroundColor(Color.LTGRAY);
+                if(nextMonthsDays)
+                    dayName.setBackgroundColor(Color.LTGRAY);
+                else
+                    dayName.setBackgroundColor(Color.WHITE);
+
                 setupDayNumber++;
                 if (setupDayNumber == totalDaysInMonth){
                     setupDayNumber = 1;
