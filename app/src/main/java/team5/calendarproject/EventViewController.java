@@ -113,6 +113,8 @@ public class EventViewController extends AppCompatActivity {
 
 
     private void updateInstance(View v) {
+        ArrayList<String> participants = new ArrayList<>();
+
         EditText text = (EditText) findViewById(R.id.et_EventTitle);
         event.setTitle(text.getText().toString());
         text = (EditText) findViewById(R.id.et_EventDate);
@@ -124,9 +126,9 @@ public class EventViewController extends AppCompatActivity {
         text = (EditText) findViewById(R.id.et_Location);
         event.setLocation(text.getText().toString());
         text = (EditText) findViewById(R.id.et_email1);
-        String partic = text.getText().toString();
+        participants.add(text.getText().toString());
         text = (EditText) findViewById(R.id.editText8);
-        partic += " " + text.getText().toString();
+        participants.add(text.getText().toString());
         //adding for push
 
         CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
