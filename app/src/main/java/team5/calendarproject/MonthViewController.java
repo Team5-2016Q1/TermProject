@@ -136,20 +136,20 @@ public class MonthViewController extends AppCompatActivity {
 
         //amount of days previous to what should be first day
         int dayShift;
-        if(c.get(Calendar.DATE) == Calendar.MONDAY) {
+        if(c.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
             dayShift = 1;
-        } else if(c.get(Calendar.DATE) == Calendar.TUESDAY) {
+        } else if(c.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
             dayShift = 2;
-        } else if(c.get(Calendar.DATE) == Calendar.WEDNESDAY) {
+        } else if(c.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
             dayShift = 3;
-        } else if(c.get(Calendar.DATE) == Calendar.THURSDAY) {
+        } else if(c.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
             dayShift = 4;
-        } else if(c.get(Calendar.DATE) == Calendar.FRIDAY) {
+        } else if(c.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
             dayShift = 5;
-        } else if(c.get(Calendar.DATE) == Calendar.SATURDAY) {
+        } else if(c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             dayShift = 6;
         } else
-            dayShift = 2;
+            dayShift = 0; //2 for hard coding later
 
         int     totalDaysInMonth  = CalendarDates.values()[theMonth].getNumberOfDays(theYear);
         int     setupDayNumber    = 1;
@@ -171,7 +171,6 @@ public class MonthViewController extends AppCompatActivity {
                     workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
                     dayFace = (GridLayout)workingDay.findViewById(R.id.dayFace);
                     dayFace.setBackgroundColor(Color.LTGRAY);
-                    //System.out.println("Should be red");
 
                     TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                     dayName.setText(Integer.toString(daysInPreviousMonth - subtractDay));
