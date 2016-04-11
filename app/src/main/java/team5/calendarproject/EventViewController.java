@@ -62,9 +62,16 @@ public class EventViewController extends AppCompatActivity {
             public void onClick(View arg0) {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{event.getParticipantsAsString()});
+
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{
+                        event.getParticipants().get(0), event.getParticipants().get(1)});
                 i.putExtra(Intent.EXTRA_SUBJECT, "You're invited to " + event.getTitle() +"!");
-                i.putExtra(Intent.EXTRA_TEXT, "Change this to be Event title, event start time, event end time, and event location ");
+                String emailText;
+                emailText = "What?: " + event.getTitle() + "\nWhere?: " + event.getLocation() +
+                        "\nWhen?: " + event.getTime() + " until " + event.getEndTime() +
+                        "\nIf you would like to join, please email me back before " +
+                        event.getDate() + "!";
+                i.putExtra(Intent.EXTRA_TEXT, emailText);
                 try {
                     startActivity(Intent.createChooser(i, "Send mail..."));
                 } catch (android.content.ActivityNotFoundException ex) {
