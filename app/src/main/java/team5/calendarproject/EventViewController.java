@@ -17,11 +17,12 @@ public class EventViewController extends AppCompatActivity {
 
     private Button btnEdit, btnDelete;
     private Database db;
-    private CalendarEvent event = null;
+    private CalendarEvent event;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        event = null;
         openDB();
 
         super.onCreate(savedInstanceState);
@@ -35,6 +36,10 @@ public class EventViewController extends AppCompatActivity {
             makeEvent(c);
             Log.d("Event received", event.getTitle());
             setUpTextBoxes();
+        }
+        else if(extras == null) {
+            Intent next = new Intent(getApplicationContext(), MonthViewController.class);
+            startActivity(next);
         }
 
         btnDelete = (Button) findViewById(R.id.deleteButton);
@@ -206,7 +211,6 @@ public class EventViewController extends AppCompatActivity {
                         c.getInt(0), c.getInt(3), c.getInt(4), c.getString(2),
                         c.getString(1), c.getString(5), alarm1, alarm2, alarm3,
                         participants, c.getString(10), c.getInt(9));
-
     }
 
     public void editInstance(View v) {
@@ -214,11 +218,23 @@ public class EventViewController extends AppCompatActivity {
     }
 
     public void deleteInstance(View v) {
+
         if(db.deleteEventRow(event.getDbIDNumber())) {
             toast("event removed");
+                if(areEventsListed() == false)  //Goes to the monthview if no events exist
+                    startActivity(new Intent(this, MonthViewController.class));
             finish();
         } else
             toast("Event already removed");
+    }
+
+    public boolean areEventsListed() {
+        Cursor c =  db.getAllEventRows();
+        if (c == null) {
+            return true;
+        }
+        else
+            return false;
     }
 
     private void toast(String description) {

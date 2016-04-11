@@ -140,7 +140,8 @@ public final class Database {
         initialValues.put(EventEntries.TITLE, title);
         initialValues.put(EventEntries.DATE, date);
         initialValues.put(EventEntries.TIME, time);
-        initialValues.put(EventEntries.COLOR, endTime);
+        initialValues.put(EventEntries.END_TIME, endTime);
+        initialValues.put(EventEntries.COLOR, color);
         initialValues.put(EventEntries.ALARM1, alarm1);
         initialValues.put(EventEntries.ALARM2, alarm2);
         initialValues.put(EventEntries.ALARM3, alarm3);
@@ -172,7 +173,8 @@ public final class Database {
         newValues.put(EventEntries.TITLE, title);
         newValues.put(EventEntries.DATE, date);
         newValues.put(EventEntries.TIME, time);
-        newValues.put(EventEntries.COLOR, endTime);
+        newValues.put(EventEntries.END_TIME, endTime);
+        newValues.put(EventEntries.COLOR, color);
         newValues.put(EventEntries.ALARM1, alarm1);
         newValues.put(EventEntries.ALARM2, alarm2);
         newValues.put(EventEntries.ALARM3, alarm3);
