@@ -168,8 +168,8 @@ public class MonthViewController extends AppCompatActivity {
                 for (; dayNumber < dayShift; dayNumber++) {
                     workingDay = findViewById(weekIDs[weekNumber]);
                     workingDay = (View)workingDay.findViewById(dayIDs[dayNumber]);
-                    workingDay.setBackgroundColor(Color.RED);
-                    System.out.println("Should be red");
+                    workingDay.setBackgroundColor(Color.BLACK);
+                    //System.out.println("Should be red");
 
                     TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                     dayName.setText("" + (daysInPreviousMonth - subtractDay));
