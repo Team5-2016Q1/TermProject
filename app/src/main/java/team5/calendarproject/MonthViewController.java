@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Color;
@@ -154,9 +155,10 @@ public class MonthViewController extends AppCompatActivity {
         int     setupDayNumber    = 1;
         int     subtractDay       = dayShift - 1;
         int     weekNumber        = 0;
-        int     dayNumber         = 0;
         boolean nextMonthsDays    = false;
+        int     dayNumber;
         View    workingDay;
+        GridLayout dayFace;
 
         //This loop goes over any days of previous month on the first week
         for( ; weekNumber < 6; weekNumber++) {
@@ -166,29 +168,28 @@ public class MonthViewController extends AppCompatActivity {
             //only first week
             if(weekNumber == 0) {
                 for (; dayNumber < dayShift; dayNumber++) {
-                    workingDay = findViewById(weekIDs[weekNumber]);
-                    workingDay = (View)workingDay.findViewById(dayIDs[dayNumber]);
-                    workingDay.setBackgroundColor(Color.BLACK);
+                    workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
+                    dayFace = (GridLayout)workingDay.findViewById(R.id.dayFace);
+                    dayFace.setBackgroundColor(Color.LTGRAY);
                     //System.out.println("Should be red");
 
                     TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
-                    dayName.setText("" + (daysInPreviousMonth - subtractDay));
-                    //setting a day outside of current to light gray
+                    dayName.setText(Integer.toString(daysInPreviousMonth - subtractDay));
 
                     subtractDay--;
                 }
             }
 
             for ( ; dayNumber < 7; dayNumber++) {
-                workingDay = findViewById(weekIDs[weekNumber]);
-                workingDay =  workingDay.findViewById(dayIDs[dayNumber]);
+                workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
+                dayFace = (GridLayout)workingDay.findViewById(R.id.dayFace);
                 if(nextMonthsDays)
-                    workingDay.setBackgroundColor(Color.LTGRAY);
+                    dayFace.setBackgroundColor(Color.LTGRAY);
                 else
-                    workingDay.setBackgroundColor(Color.BLUE);
+                    dayFace.setBackgroundColor(Color.WHITE);
 
                 TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
-                dayName.setText("" + setupDayNumber);
+                dayName.setText(setupDayNumber);
 
                 setupDayNumber++;
                 if (setupDayNumber == totalDaysInMonth){
