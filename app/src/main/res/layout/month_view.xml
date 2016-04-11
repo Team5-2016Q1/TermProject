@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text=" Sun    Mon  Tue    Wed   Thu    Fri     Sat"
+        android:text=" Sun   Mon  Tue  Wed  Thu   Fri    Sat"
         android:id="@+id/days_of_week"
         android:layout_gravity="center_horizontal|top"
         android:textSize="19sp"
