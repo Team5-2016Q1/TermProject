@@ -94,10 +94,18 @@ public class AddEventController extends AppCompatActivity {
 
     public void createNewEvent() {
 
+
         String title = etEventTitle.getText().toString();
         String date = etEventDate.getText().toString();
-        int time = new Integer(etEventStartTime.getText().toString());
-        int endTime = new Integer(etEventEndTime.getText().toString());
+
+        int time = 0;
+        if (!etEventStartTime.getText().toString().isEmpty())
+            time = new Integer(etEventStartTime.getText().toString());
+
+        int endTime = 0;
+        if (!etEventEndTime.getText().toString().isEmpty())
+            endTime = new Integer(etEventEndTime.getText().toString());
+
         String color = "blue";
         int alarm1;
         int alarm2;

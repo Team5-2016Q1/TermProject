@@ -24,7 +24,8 @@
         android:id="@+id/et_EventDate"
         android:layout_below="@+id/et_EventTitle"
         android:layout_alignParentStart="true"
-        android:text="Event Date" />
+        android:text="Event Date"
+        android:hint="Event Date" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -75,17 +76,19 @@
         android:ems="10"
         android:id="@+id/et_email1"
         android:layout_below="@+id/tv_participants"
-        android:text="Email1" />
+        android:text="Email1"
+        android:hint="Email 1" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText8"
+        android:id="@+id/et_EventView_Email2"
         android:layout_below="@+id/et_email1"
         android:layout_alignParentStart="true"
-        android:text="Email2" />
+        android:text="Email2"
+        android:hint="Email 2" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -102,7 +105,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Reminders"
         android:id="@+id/textView2"
-        android:layout_below="@+id/editText8"
+        android:layout_below="@+id/et_EventView_Email2"
         android:layout_alignParentStart="true" />
 
     <CheckBox

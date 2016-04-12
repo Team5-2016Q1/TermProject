@@ -60,6 +60,7 @@ public class EventViewController extends AppCompatActivity {
         shareEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                updateEvent();
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
 
@@ -120,6 +121,21 @@ public class EventViewController extends AppCompatActivity {
 
 
     private void updateInstance(View v) {
+        updateEvent();
+        toast("Event Updated");
+        finish();
+    }
+
+    /*private void updateDBToo() {
+        int alarm = (event.isAlarmSet()? 1 : 0);
+        int alarm2 = (event.isSecondAlarmSet()? 1 : 0);
+        int alarm3 = (event.isThirdAlarmSet()? 1 : 0);
+        //follow the Database method inputs passed from event. whatever. Fill out completely.
+        db.updateEventRow(event.getDbIDNumber(), event.getTitle(), event.getDate(), event.getTime(), event.getEndTime(),
+                event.getColor(), alarm, alarm2, alarm3, event.getRepeats(), event.getLocation(), event.getParticipantsAsString());
+    }*/
+
+    private void updateEvent() {
         ArrayList<String> participants = new ArrayList<>();
 
         EditText text = (EditText) findViewById(R.id.et_EventTitle);
@@ -127,15 +143,23 @@ public class EventViewController extends AppCompatActivity {
         text = (EditText) findViewById(R.id.et_EventDate);
         event.setDate(text.getText().toString());
         text = (EditText) findViewById(R.id.et_EventStartTime);
-        event.setTime(new Integer(text.getText().toString()));
+        event.setTime(0);
+        if (!text.getText().toString().isEmpty())
+            event.setTime(new Integer(text.getText().toString()));
+        //event.setTime(new Integer(text.getText().toString()));
         text = (EditText) findViewById(R.id.et_ViewEvent_EndTime);
-        event.setEndTime( new Integer(text.getText().toString()) );
+        event.setEndTime(0);
+        if (!text.getText().toString().isEmpty())
+            event.setEndTime( new Integer(text.getText().toString()));
         text = (EditText) findViewById(R.id.et_Location);
         event.setLocation(text.getText().toString());
         text = (EditText) findViewById(R.id.et_email1);
-        participants.add(text.getText().toString());
-        text = (EditText) findViewById(R.id.editText8);
-        participants.add(text.getText().toString());
+        if (!text.getText().toString().isEmpty())
+            participants.add(text.getText().toString());
+        text = (EditText) findViewById(R.id.et_EventView_Email2);
+        if (!text.getText().toString().isEmpty())
+            participants.add(text.getText().toString());
+        event.setParticipants(participants);
         //adding for push
 
         CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
@@ -144,12 +168,6 @@ public class EventViewController extends AppCompatActivity {
         event.setSecondAlarm(checkBox.isChecked());
         checkBox = (CheckBox) findViewById(R.id.checkBox3);
         event.setThirdAlarm(checkBox.isChecked());
-        updateDBToo();
-        toast("Event Updated");
-        finish();
-    }
-
-    private void updateDBToo() {
         int alarm = (event.isAlarmSet()? 1 : 0);
         int alarm2 = (event.isSecondAlarmSet()? 1 : 0);
         int alarm3 = (event.isThirdAlarmSet()? 1 : 0);
@@ -166,14 +184,38 @@ public class EventViewController extends AppCompatActivity {
             text.setText(event.getDate());
             text = (EditText) findViewById(R.id.et_EventStartTime);
             text.setText("" + event.getTime());
+            if (event.getTime() == 0)
+                text.setText("");
             text = (EditText) findViewById(R.id.et_ViewEvent_EndTime);
             text.setText("" + event.getEndTime());
+            if (event.getEndTime() == 0)
+                text.setText("");
             text = (EditText) findViewById(R.id.et_Location);
             text.setText(event.getLocation());
-            text = (EditText) findViewById(R.id.et_email1);
-            text.setText(event.getParticipants().get(0));
-            text = (EditText) findViewById(R.id.editText8);
-            text.setText(event.getParticipants().get(1));
+
+            //having no participants does not fully work...
+            if (event.getParticipants().isEmpty()) {
+                text = (EditText) findViewById(R.id.et_email1);
+                text.setText("");
+                text = (EditText) findViewById(R.id.et_EventView_Email2);
+                text.setText("");
+            } else {
+                if (!event.getParticipants().get(0).isEmpty()) {
+                    text = (EditText) findViewById(R.id.et_email1);
+                    text.setText(event.getParticipants().get(0));
+                } else {
+                    text = (EditText) findViewById(R.id.et_email1);
+                    text.setText("");
+                }
+                if (!event.getParticipants().get(1).isEmpty()) {
+                    text = (EditText) findViewById(R.id.et_EventView_Email2);
+                    text.setText(event.getParticipants().get(1));
+                } else {
+                    text = (EditText) findViewById(R.id.et_email1);
+                    text.setText("");
+                }
+            }
+
 
             CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
             checkBox.setChecked(event.isAlarmSet());
@@ -202,11 +244,14 @@ public class EventViewController extends AppCompatActivity {
         }
 
         ArrayList<String> participants = new ArrayList<>();
-        String[] result = c.getString(11).split(" ");
-        for (int x = 0; x < result.length; x++) {
-            participants.add(result[x]);
-            System.out.println(result[x]);
+        if (!c.getString(11).isEmpty()) {
+            String[] result = c.getString(11).split(" ");
+            for (int x = 0; x < result.length; x++) {
+                participants.add(result[x]);
+                System.out.println(result[x]);
+            }
         }
+
 
                 /*  0     1     2     3       4        5      6       7       8
                  * _ID, TITLE, DATE, TIME, END_TIME, COLOR, ALARM1, ALARM2, ALARM3,
