@@ -123,6 +123,8 @@ public class MonthViewController extends AppCompatActivity {
         monthName.setText(CalendarDates.values()[theMonth].toString());
 
         Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, theYear);
+        c.set(Calendar.MONTH, theMonth);
         c.set(Calendar.DAY_OF_MONTH, 1);
         int daysInPreviousMonth =
                 CalendarDates.values()[
@@ -162,7 +164,6 @@ public class MonthViewController extends AppCompatActivity {
 
         //This loop goes over any days of previous month on the first week
         for( ; weekNumber < 6; weekNumber++) {
-            System.out.println("week number " + weekNumber);
             dayNumber = 0;
 
             //only first week
@@ -188,7 +189,7 @@ public class MonthViewController extends AppCompatActivity {
                     dayFace.setBackgroundColor(Color.WHITE);
 
                 TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
-                dayName.setText(setupDayNumber);
+                dayName.setText("" + setupDayNumber);
 
                 setupDayNumber++;
                 if (setupDayNumber == totalDaysInMonth){
