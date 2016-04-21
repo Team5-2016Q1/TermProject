@@ -30,7 +30,6 @@ public class MonthViewController extends AppCompatActivity {
     private int                         theMonth;
     private int                         theYear;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
@@ -119,8 +118,7 @@ public class MonthViewController extends AppCompatActivity {
 
     private void setupMonth() {
         monthName = (TextView) findViewById(R.id.monthly_view_month_name);
-        //set to calendar current month name
-        monthName.setText(CalendarDates.values()[theMonth].toString());
+
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, theYear);
@@ -132,6 +130,10 @@ public class MonthViewController extends AppCompatActivity {
                     ].getNumberOfDays(
                             (theMonth==Calendar.JANUARY? theYear-1 : theYear)
                         );
+
+        //set to calendar current month name
+        int year = Calendar.getInstance().get(Calendar.YEAR) + theYear;
+        monthName.setText(CalendarDates.values()[theMonth].toString() + " " + (year - 1));
 
         //so now we have the day that the month starts on, the amount of days in the previous month
         //and the days in current month.
@@ -192,7 +194,7 @@ public class MonthViewController extends AppCompatActivity {
                 dayName.setText("" + setupDayNumber);
 
                 setupDayNumber++;
-                if (setupDayNumber == totalDaysInMonth){
+                if (setupDayNumber - 1 == totalDaysInMonth){
                     setupDayNumber = 1;
                     nextMonthsDays = true;
                 }
@@ -259,7 +261,7 @@ public class MonthViewController extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_contact_list, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 

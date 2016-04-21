@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/days_of_week">
+
+    <TextView
+        android:layout_width="@dimen/day_view_width"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Sun"
+        android:id="@+id/tv_Sunday"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="2dp" />
+
+    <TextView
+        android:layout_width="@dimen/day_view_width"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Mon"
+        android:id="@+id/tv_Monday"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tv_Sunday"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Tue"
+        android:id="@+id/tv_Tuesday"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tv_Monday"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Wed"
+        android:id="@+id/tv_Wednesday"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tv_Tuesday"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Thurs"
+        android:id="@+id/tv_Thursday"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tv_Wednesday"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="@dimen/day_view_width"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Fri"
+        android:id="@+id/tv_Friday"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tv_Thursday"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="@dimen/day_view_width"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Sat"
+        android:id="@+id/tv_Saturday"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tv_Friday"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+</RelativeLayout>

@@ -13,7 +13,7 @@
         android:background="@android:color/white">
 
         <TextView
-            android:layout_width="48dp"
+            android:layout_width="@dimen/day_view_width"
             android:layout_height="wrap_content"
             android:text="1"
             android:textColor="#000000"
