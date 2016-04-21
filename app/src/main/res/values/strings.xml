@@ -8,4 +8,5 @@
     <string name="Cancel">Cancel</string>
     <string name="Create">Create</string>
     <string name="title_activity_event_list">Event List</string>
+    <string name="action_search">Search Action</string>
 </resources>
