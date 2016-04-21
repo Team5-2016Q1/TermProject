@@ -92,8 +92,8 @@ public class MonthViewController extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        theMonth = Calendar.MONTH;
-        theYear = Calendar.YEAR;
+        theMonth = Calendar.getInstance().get(Calendar.MONTH);
+        theYear = Calendar.getInstance().get(Calendar.YEAR);
         setupIDvalues();
         setupMonth();
         makeEventsList();
@@ -132,8 +132,7 @@ public class MonthViewController extends AppCompatActivity {
                         );
 
         //set to calendar current month name
-        int year = Calendar.getInstance().get(Calendar.YEAR) + theYear;
-        monthName.setText(CalendarDates.values()[theMonth].toString() + " " + (year - 1));
+        monthName.setText(CalendarDates.values()[theMonth].toString() + " " + theYear);
 
         //so now we have the day that the month starts on, the amount of days in the previous month
         //and the days in current month.
