@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -18,6 +19,7 @@ import java.util.Calendar;
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
     private Database                    db;
+    private Button                      searchButton;
     private Button                      addEventButton;
     private Button                      viewEventButton;
     private TextView                    nextMonthButton;
@@ -52,6 +54,15 @@ public class MonthViewController extends AppCompatActivity {
                 goToEventView();
             }
         });
+        /*
+        searchButton = (Button) findViewById(R.id.action_favorite);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSearch();
+            }
+        });
+        */
 
         prevMonthButton = (TextView) findViewById(R.id.month_view_previous_month);
         prevMonthButton.setText("<");
@@ -260,7 +271,24 @@ public class MonthViewController extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        Intent intent = null;
+
+        switch (id){
+            case(R.id.action_favorite):
+                intent = new Intent(this,Search.class);
+                break;
+        }
+
+        if(intent != null)
+            startActivity(intent);
         return true;
     }
 
@@ -285,7 +313,13 @@ public class MonthViewController extends AppCompatActivity {
                 new Intent(this, AddEventController.class)
         );
     }
-
+    /*
+    public void goToSearch() {
+        startActivity(
+                new Intent(this, Search.class)
+        );
+    }
+    */
     private void toast(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }
