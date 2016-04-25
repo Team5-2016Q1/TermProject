@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -18,6 +19,7 @@ import java.util.Calendar;
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
     private Database                    db;
+    private Button                      searchButton;
     private Button                      addEventButton;
     private Button                      viewEventButton;
     private TextView                    nextMonthButton;
@@ -29,7 +31,6 @@ public class MonthViewController extends AppCompatActivity {
     private ArrayList<Task>             tasks;
     private int                         theMonth;
     private int                         theYear;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,15 @@ public class MonthViewController extends AppCompatActivity {
                 goToEventView();
             }
         });
+        /*
+        searchButton = (Button) findViewById(R.id.action_favorite);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSearch();
+            }
+        });
+        */
 
         prevMonthButton = (TextView) findViewById(R.id.month_view_previous_month);
         prevMonthButton.setText("<");
@@ -93,8 +103,8 @@ public class MonthViewController extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        theMonth = Calendar.MONTH;
-        theYear = Calendar.YEAR;
+        theMonth = Calendar.getInstance().get(Calendar.MONTH);
+        theYear = Calendar.getInstance().get(Calendar.YEAR);
         setupIDvalues();
         setupMonth();
         makeEventsList();
@@ -119,8 +129,7 @@ public class MonthViewController extends AppCompatActivity {
 
     private void setupMonth() {
         monthName = (TextView) findViewById(R.id.monthly_view_month_name);
-        //set to calendar current month name
-        monthName.setText(CalendarDates.values()[theMonth].toString());
+
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, theYear);
@@ -132,6 +141,9 @@ public class MonthViewController extends AppCompatActivity {
                     ].getNumberOfDays(
                             (theMonth==Calendar.JANUARY? theYear-1 : theYear)
                         );
+
+        //set to calendar current month name
+        monthName.setText(CalendarDates.values()[theMonth].toString() + " " + theYear);
 
         //so now we have the day that the month starts on, the amount of days in the previous month
         //and the days in current month.
@@ -192,7 +204,7 @@ public class MonthViewController extends AppCompatActivity {
                 dayName.setText("" + setupDayNumber);
 
                 setupDayNumber++;
-                if (setupDayNumber == totalDaysInMonth){
+                if (setupDayNumber - 1 == totalDaysInMonth){
                     setupDayNumber = 1;
                     nextMonthsDays = true;
                 }
@@ -259,7 +271,24 @@ public class MonthViewController extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_contact_list, menu);
+
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        Intent intent = null;
+
+        switch (id){
+            case(R.id.action_favorite):
+                intent = new Intent(this,Search.class);
+                break;
+        }
+
+        if(intent != null)
+            startActivity(intent);
         return true;
     }
 
@@ -284,7 +313,13 @@ public class MonthViewController extends AppCompatActivity {
                 new Intent(this, AddEventController.class)
         );
     }
-
+    /*
+    public void goToSearch() {
+        startActivity(
+                new Intent(this, Search.class)
+        );
+    }
+    */
     private void toast(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }

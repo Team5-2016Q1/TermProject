@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="monthly_days_padding">1dp</dimen>
+    <dimen name="day_view_width">48dp</dimen>
 </resources>
