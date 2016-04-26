@@ -82,7 +82,7 @@ public class EventList extends AppCompatActivity {
         }
         cursor.close();*/
 
-        ListAdapter theAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,events);
+        ListAdapter theAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events);
         ListView theListView = (ListView) findViewById(R.id.listView);
 
         theListView.setAdapter(theAdapter);
@@ -97,6 +97,7 @@ public class EventList extends AppCompatActivity {
                 for (int i = 0; i < events.size(); i++) {
                     if (findByThisString.equals(events.get(i).getTitle())) {
                         returnId = Integer.toString(events.get(i).getDbIDNumber());
+                        next.putExtra("Event", events.get(i));
                     }
                 }
                 next.putExtra("id", returnId);

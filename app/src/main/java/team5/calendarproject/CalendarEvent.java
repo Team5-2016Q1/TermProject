@@ -115,15 +115,9 @@ public class CalendarEvent extends Event {
     //I used this for debugging purposes -- Benson
     @Override
     public String toString() {
-        return  "time:          " + getTime() + "\n" +
-                "endTime:       " + endTime + "\n" +
-                "date:          " + getDate() + "\n" +
-                "title:         " + getTitle() + "\n" +
-                "color:         " + getColor() + "\n" +
-                "alarm2:        " + secondAlarm + "\n" +
-                "alarm3:        " + thirdAlarm + "\n" +
-                "participants:  " + participants.toString() + "\n" +
-                "location:      " + location + "\n" +
-                "repeats:      " + repeats + "\n";
+        return  "Event: " + getTitle() + "\n" +
+                "From: " + getTime() +
+                "  Until: " + getEndTime() +
+                "  On: " + getDate();
     }
 }

@@ -29,9 +29,10 @@ public class EventViewController extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            int id = (int)extras.getSerializable("Event");
-            Cursor c = db.getEventRow(id);
-            makeEvent(c);
+            //int id = (int)extras.getSerializable("id");
+            //Cursor c = db.getEventRow(id);
+            //makeEvent(c);
+            event = (CalendarEvent) extras.getSerializable("Event");
             Log.d("Event received", event.getTitle());
             setUpTextBoxes();
         }

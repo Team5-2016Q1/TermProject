@@ -129,7 +129,7 @@ public class Search extends AppCompatActivity {
                     for (int i = 0; i < displayList.size(); i++) {
                         if (findByThisString.equals(displayList.get(i).getTitle())) {
                             returnId = Integer.toString(displayList.get(i).getDbIDNumber());
-                            //next.putExtra("Event", displayList.get(i));
+                            next.putExtra("Event", displayList.get(i));
                         }
                     }
                     next.putExtra("id", returnId);
