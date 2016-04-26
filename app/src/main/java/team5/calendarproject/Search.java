@@ -67,40 +67,44 @@ public class Search extends AppCompatActivity {
     private boolean searchForEvent () {
         boolean foundEvents = false;
         displayList.clear();
-
-        searchBox = (EditText)findViewById(R.id.et_search);
+        searchBox = (EditText) findViewById(R.id.et_search);
         String searchValue = searchBox.getText().toString();
-        Integer searchValueAsInt = new Integer(searchValue);
+        boolean number = false;
+        Integer searchValueAsInt = -1;
+        try {
+            searchValueAsInt = new Integer(searchValue);
+            //search through all the events
+            //for(CalendarEvent e : events)
+            //   look at all of the attributes and compare.
+            //    if any matches, add to displayList, set foundEvents true;
+        } catch (NumberFormatException nfe) {
 
-        for(CalendarEvent e : events) {
+        }
+
+        for (CalendarEvent e : events) {
             // Title
-            if(e.getTitle().equalsIgnoreCase(searchValue)) {
+            if (e.getTitle().equalsIgnoreCase(searchValue)) {
                 displayList.add(e);
                 foundEvents = true;
             } // Location
-            else if(e.getLocation().equalsIgnoreCase(searchValue)) {
+            else if (e.getLocation().equalsIgnoreCase(searchValue)) {
                 displayList.add(e);
                 foundEvents = true;
             } // Participants
-            else if(e.getParticipantsAsString().contains(searchValue)) {
+            else if (e.getParticipantsAsString().contains(searchValue)) {
                 displayList.add(e);
                 foundEvents = true;
             } // Time
-            else if(e.getHour() == searchValueAsInt || e.getMinute() == searchValueAsInt) {
+            else if (e.getHour() == searchValueAsInt || e.getMinute() == searchValueAsInt) {
                 displayList.add(e);
                 foundEvents = true;
             } // Date
-            else if(e.getDay() == searchValueAsInt || e.getMonth() == searchValueAsInt
+            else if (e.getDay() == searchValueAsInt || e.getMonth() == searchValueAsInt
                     || e.getYear() == searchValueAsInt) {
                 displayList.add(e);
                 foundEvents = true;
             }
         }
-        //search through all the events
-        //for(CalendarEvent e : events)
-        //   look at all of the attributes and compare.
-        //    if any matches, add to displayList, set foundEvents true;
-
         return foundEvents;
     }
 
@@ -125,6 +129,7 @@ public class Search extends AppCompatActivity {
                     for (int i = 0; i < displayList.size(); i++) {
                         if (findByThisString.equals(displayList.get(i).getTitle())) {
                             returnId = Integer.toString(displayList.get(i).getDbIDNumber());
+                            //next.putExtra("Event", displayList.get(i));
                         }
                     }
                     next.putExtra("id", returnId);
