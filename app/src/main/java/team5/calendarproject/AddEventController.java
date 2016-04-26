@@ -1,5 +1,6 @@
 package team5.calendarproject;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,17 @@ public class AddEventController extends AppCompatActivity {
         setContentView(R.layout.add_event_view);
 
         makeButtonsWork();
+
+        etEventDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    DateDialog dialog = new DateDialog(v);
+                    FragmentTransaction f = getFragmentManager().beginTransaction();
+                    dialog.show(f, "DatePicker");
+                }
+            }
+        });
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

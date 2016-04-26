@@ -34,7 +34,7 @@ public class EventList extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            events = new ArrayList<>( (ArrayList)extras.getSerializable("id") );
+            events = new ArrayList<>( (ArrayList)extras.getSerializable("Event") );
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

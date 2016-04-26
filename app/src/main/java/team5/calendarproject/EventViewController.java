@@ -29,7 +29,7 @@ public class EventViewController extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            int id = (int)extras.getSerializable("id");
+            int id = (int)extras.getSerializable("Event");
             Cursor c = db.getEventRow(id);
             makeEvent(c);
             Log.d("Event received", event.getTitle());
