@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,9 +18,12 @@ import java.util.ArrayList;
 
 public class EventList extends AppCompatActivity {
 
-    Database db;
-    String findByThisString;
-    String returnId;
+    private Database db;
+    private String findByThisString;
+    private String returnId;
+    private final ArrayList<String> data = new ArrayList<>();
+    //private final ArrayList<String>idInfo = new ArrayList<>();
+    private ArrayList<CalendarEvent>events = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,11 @@ public class EventList extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_list);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            events = new ArrayList<>( (ArrayList)extras.getSerializable("id") );
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,10 +71,8 @@ public class EventList extends AppCompatActivity {
 
     //Needs to be changed
     public void ListEvents() {
-        final ArrayList<String> data = new ArrayList<>();
-        final ArrayList<String>idInfo = new ArrayList<>();
 
-        Cursor cursor = db.getAllEventRows();
+        /*Cursor cursor = db.getAllEventRows();
 
         if(cursor != null){
             do{
@@ -73,9 +80,9 @@ public class EventList extends AppCompatActivity {
                 idInfo.add(new Integer(cursor.getInt(0)).toString()); //This will be the database RowID
             }while( cursor.moveToNext() );
         }
-        cursor.close();
+        cursor.close();*/
 
-        ListAdapter theAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,data);
+        ListAdapter theAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,events);
         ListView theListView = (ListView) findViewById(R.id.listView);
 
         theListView.setAdapter(theAdapter);
@@ -87,10 +94,9 @@ public class EventList extends AppCompatActivity {
                 //Toast.makeText(EventList.this, itemSelected, Toast.LENGTH_SHORT).show();
                 Intent next = new Intent(getApplicationContext(), EventViewController.class);
                 findByThisString = String.valueOf(parent.getItemAtPosition(position));
-                int i = 0;
-                for (i = 0; i < data.size(); i++) {
-                    if (findByThisString.equals(data.get(i))) {
-                        returnId = idInfo.get(i);
+                for (int i = 0; i < events.size(); i++) {
+                    if (findByThisString.equals(events.get(i).getTitle())) {
+                        returnId = Integer.toString(events.get(i).getDbIDNumber());
                     }
                 }
                 next.putExtra("id", returnId);

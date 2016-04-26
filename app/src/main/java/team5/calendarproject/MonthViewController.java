@@ -302,8 +302,7 @@ public class MonthViewController extends AppCompatActivity {
             return;
         }
         startActivity(
-                new Intent(this, EventList.class)
-                //new Intent(this, EventViewController.class).putExtra("Event", events.get(0))
+                new Intent(this, EventList.class).putExtra("Event", events)
         );
     }
 

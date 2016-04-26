@@ -15,31 +15,25 @@ import java.util.ArrayList;
 
 public class EventViewController extends AppCompatActivity {
 
-    private Button btnEdit, btnDelete;
+    private Button btnEdit, btnDelete, shareEventButton;
     private Database db;
     private CalendarEvent event;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        event = null;
         openDB();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_view);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null)
-        {
-            Integer id = new Integer( (String)extras.getSerializable("id") );
+        if(extras != null) {
+            int id = (int)extras.getSerializable("id");
             Cursor c = db.getEventRow(id);
             makeEvent(c);
             Log.d("Event received", event.getTitle());
             setUpTextBoxes();
-        }
-        else if(extras == null) {
-            Intent next = new Intent(getApplicationContext(), MonthViewController.class);
-            startActivity(next);
         }
 
         btnDelete = (Button) findViewById(R.id.deleteButton);
@@ -56,28 +50,11 @@ public class EventViewController extends AppCompatActivity {
             }
         });
 
-        final Button shareEventButton = (Button)findViewById(R.id.invitePartButtons);
+        shareEventButton = (Button)findViewById(R.id.invitePartButtons);
         shareEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                updateEvent();
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
-
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{
-                        event.getParticipants().get(0), event.getParticipants().get(1)});
-                i.putExtra(Intent.EXTRA_SUBJECT, "You're invited to " + event.getTitle() +"!");
-                String emailText;
-                emailText = "What?: " + event.getTitle() + "\nWhere?: " + event.getLocation() +
-                        "\nWhen?: " + event.getTime() + " until " + event.getEndTime() +
-                        "\nIf you would like to join, please email me back before " +
-                        event.getDate() + "!";
-                i.putExtra(Intent.EXTRA_TEXT, emailText);
-                try {
-                    startActivity(Intent.createChooser(i, "Send mail..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    toast("No Email Client Found");
-                }
+                sendEmail();
             }
         });
     }
@@ -88,28 +65,6 @@ public class EventViewController extends AppCompatActivity {
         super.onDestroy();
     }
 
-    /* THIS IS FOR MAKING A MENU, LEAVE FOR NOW
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.display_contact_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    } */
 
     //Added By Edward
     private void openDB() {
@@ -126,14 +81,26 @@ public class EventViewController extends AppCompatActivity {
         finish();
     }
 
-    /*private void updateDBToo() {
-        int alarm = (event.isAlarmSet()? 1 : 0);
-        int alarm2 = (event.isSecondAlarmSet()? 1 : 0);
-        int alarm3 = (event.isThirdAlarmSet()? 1 : 0);
-        //follow the Database method inputs passed from event. whatever. Fill out completely.
-        db.updateEventRow(event.getDbIDNumber(), event.getTitle(), event.getDate(), event.getTime(), event.getEndTime(),
-                event.getColor(), alarm, alarm2, alarm3, event.getRepeats(), event.getLocation(), event.getParticipantsAsString());
-    }*/
+    private void sendEmail() {
+        updateEvent(); //why are we updating event here?
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{
+                event.getParticipants().get(0), event.getParticipants().get(1)});
+        i.putExtra(Intent.EXTRA_SUBJECT, "You're invited to " + event.getTitle() +"!");
+        String emailText;
+        emailText = "What?: " + event.getTitle() + "\nWhere?: " + event.getLocation() +
+                "\nWhen?: " + event.getTime() + " until " + event.getEndTime() +
+                "\nIf you would like to join, please email me back before " +
+                event.getDate() + "!";
+        i.putExtra(Intent.EXTRA_TEXT, emailText);
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            toast("No Email Client Found");
+        }
+    }
 
     private void updateEvent() {
         ArrayList<String> participants = new ArrayList<>();
@@ -267,28 +234,19 @@ public class EventViewController extends AppCompatActivity {
                         participants, c.getString(10), c.getInt(9));
     }
 
+    //we should be editing event this way. Pass details to AddEventController and "save" there.
     public void editInstance(View v) {
         startActivity(new Intent(this, AddEventController.class).putExtra("Event", event));
     }
 
     public void deleteInstance(View v) {
-
         if(db.deleteEventRow(event.getDbIDNumber())) {
             toast("event removed");
-                if(areEventsListed() == false)  //Goes to the monthview if no events exist
+                if(db.getAllEventRows() == null)  //Goes to the monthview if no events exist
                     startActivity(new Intent(this, MonthViewController.class));
             finish();
         } else
             toast("Event already removed");
-    }
-
-    public boolean areEventsListed() {
-        Cursor c =  db.getAllEventRows();
-        if (c == null) {
-            return true;
-        }
-        else
-            return false;
     }
 
     private void toast(String description) {
