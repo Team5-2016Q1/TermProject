@@ -107,6 +107,7 @@ public class AddEventController extends AppCompatActivity {
         if (!etEventStartTime.getText().toString().isEmpty())
             time = new Integer(etEventStartTime.getText().toString());
 
+
         int endTime = 0;
         if (!etEventEndTime.getText().toString().isEmpty())
             endTime = new Integer(etEventEndTime.getText().toString());

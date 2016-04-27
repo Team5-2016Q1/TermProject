@@ -105,9 +105,9 @@ public class MonthViewController extends AppCompatActivity {
         super.onResume();
         theMonth = Calendar.getInstance().get(Calendar.MONTH);
         theYear = Calendar.getInstance().get(Calendar.YEAR);
+        makeEventsList();
         setupIDvalues();
         setupMonth();
-        makeEventsList();
     }
 
     //instantiates the database and recovers User_ID from the shared preference file
@@ -197,9 +197,16 @@ public class MonthViewController extends AppCompatActivity {
                 dayFace = (GridLayout)workingDay.findViewById(R.id.dayFace);
                 if(nextMonthsDays)
                     dayFace.setBackgroundColor(Color.LTGRAY);
-                else
+                else {
+                    for(CalendarEvent event : events)
+                        if (event.getDay() == dayNumber) {
+                            toast("event found");
+                            TextView eventText = (TextView) workingDay.findViewById(R.id.day_event_1);
+                            eventText.setText(event.getTitle());
+                            eventText.setTextColor(Color.BLUE);
+                        }
                     dayFace.setBackgroundColor(Color.WHITE);
-
+                }
                 TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                 dayName.setText("" + setupDayNumber);
 
@@ -283,8 +290,7 @@ public class MonthViewController extends AppCompatActivity {
 
         switch (id){
             case(R.id.action_favorite):
-                intent = new Intent(this, Search.class);
-                intent.putExtra("Events", events);
+                intent = new Intent(this,Search.class);
                 break;
         }
 
