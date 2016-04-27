@@ -13,16 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class EventList extends AppCompatActivity {
 
     private Database db;
-    private String findByThisString;
-    private String returnId;
-    private final ArrayList<String> data = new ArrayList<>();
-    //private final ArrayList<String>idInfo = new ArrayList<>();
     private ArrayList<CalendarEvent>events = null;
 
     @Override
@@ -82,7 +79,8 @@ public class EventList extends AppCompatActivity {
         }
         cursor.close();*/
 
-        ListAdapter theAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events);
+        ListAdapter theAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events);
         ListView theListView = (ListView) findViewById(R.id.listView);
 
         theListView.setAdapter(theAdapter);
@@ -90,23 +88,19 @@ public class EventList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //String itemSelected = "You Selected " + String.valueOf(parent.getItemAtPosition(position));
-                //Toast.makeText(EventList.this, itemSelected, Toast.LENGTH_SHORT).show();
                 Intent next = new Intent(getApplicationContext(), EventViewController.class);
-                findByThisString = String.valueOf(parent.getItemAtPosition(position));
-                for (int i = 0; i < events.size(); i++) {
-                    if (findByThisString.equals(events.get(i).getTitle())) {
-                        returnId = Integer.toString(events.get(i).getDbIDNumber());
-                        next.putExtra("Event", events.get(i));
-                    }
-                }
-                next.putExtra("id", returnId);
-                startActivity(next);
 
+                next.putExtra("Event", events.get(position));
+                startActivity(next);
             }
         });
 
 
     }
+
+    private void toast(String description) {
+        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
+    }
+
 
 }

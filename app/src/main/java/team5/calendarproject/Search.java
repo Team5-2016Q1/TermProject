@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -23,23 +24,24 @@ public class Search extends AppCompatActivity {
     private Database db;
     private Button searchButton;
     private EditText searchBox;
-    private String returnId;
-    private String findByThisString;
     private ArrayList<CalendarEvent> events = null;
     private ArrayList<CalendarEvent> displayList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         openDB();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
+        events = new ArrayList<>();
+        displayList = new ArrayList<>();
+
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            events = new ArrayList<>( (ArrayList)extras.getSerializable("events") );
+            events = (ArrayList)extras.getSerializable("Events");
         }
-
-        displayList = new ArrayList<>();
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +49,8 @@ public class Search extends AppCompatActivity {
             public void onClick(View view) {
                 if (searchForEvent())
                     listEvents();
+                else
+                    toast("No events found");
 
             }
         });
@@ -62,23 +66,41 @@ public class Search extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        displayList.clear();
+        listEvents();
     }
 
     private boolean searchForEvent () {
         boolean foundEvents = false;
+
         displayList.clear();
+        listEvents();
+
         searchBox = (EditText) findViewById(R.id.et_search);
         String searchValue = searchBox.getText().toString();
-        boolean number = false;
+
         Integer searchValueAsInt = -1;
         try {
             searchValueAsInt = new Integer(searchValue);
-            //search through all the events
-            //for(CalendarEvent e : events)
-            //   look at all of the attributes and compare.
-            //    if any matches, add to displayList, set foundEvents true;
         } catch (NumberFormatException nfe) {
 
+        }
+
+        for(CalendarDates c : CalendarDates.values()) {
+            if(c.name().equalsIgnoreCase(searchValue)) {
+                for(CalendarEvent e : events) {
+                    if (CalendarDates.values()[e.getMonth()-1] == c) {
+                        displayList.add(e);
+                        foundEvents = true;
+                    }
+                }
+                if(foundEvents) return foundEvents;
+            }
+        }
+
+        if(events.isEmpty()) {
+            return false;
         }
 
         for (CalendarEvent e : events) {
@@ -95,12 +117,14 @@ public class Search extends AppCompatActivity {
                 displayList.add(e);
                 foundEvents = true;
             } // Time
-            else if (e.getHour() == searchValueAsInt || e.getMinute() == searchValueAsInt) {
+            else if (e.getHour() == searchValueAsInt.intValue()
+                    || e.getMinute() == searchValueAsInt.intValue()) {
                 displayList.add(e);
                 foundEvents = true;
             } // Date
-            else if (e.getDay() == searchValueAsInt || e.getMonth() == searchValueAsInt
-                    || e.getYear() == searchValueAsInt) {
+            else if (e.getDay() == searchValueAsInt.intValue()
+                    || e.getMonth() == searchValueAsInt.intValue()
+                    || e.getYear() == searchValueAsInt.intValue()) {
                 displayList.add(e);
                 foundEvents = true;
             }
@@ -122,17 +146,8 @@ public class Search extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    //String itemSelected = "You Selected " + String.valueOf(parent.getItemAtPosition(position));
-                    //Toast.makeText(EventList.this, itemSelected, Toast.LENGTH_SHORT).show();
                     Intent next = new Intent(getApplicationContext(), EventViewController.class);
-                    findByThisString = String.valueOf(parent.getItemAtPosition(position));
-                    for (int i = 0; i < displayList.size(); i++) {
-                        if (findByThisString.equals(displayList.get(i).getTitle())) {
-                            returnId = Integer.toString(displayList.get(i).getDbIDNumber());
-                            next.putExtra("Event", displayList.get(i));
-                        }
-                    }
-                    next.putExtra("id", returnId);
+                    next.putExtra("Event", displayList.get(position));
                     startActivity(next);
 
                 }
@@ -141,14 +156,16 @@ public class Search extends AppCompatActivity {
         }
     }
 
+
+
     //instantiates the database and recovers User_ID from the shared preference file
     private void openDB() {
         db = new Database(this);
         db.open();
     }
 
-
-
-
+    private void toast(String description) {
+        Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
+    }
 
 }

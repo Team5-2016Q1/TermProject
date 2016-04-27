@@ -23,6 +23,18 @@ public class CalendarEvent extends Event {
         secondAlarm = alarm2;
         thirdAlarm = alarm3;
         //this.repeats = repeats;
+        setHour(time);
+        setEnds_hours_later(endTime-time);
+
+        ArrayList<String> dateSplit = new ArrayList<>();
+        String[] result = date.split("/");
+        for (int x = 0; x < result.length; x++)
+            dateSplit.add(result[x]);
+
+        setMonth(new Integer(dateSplit.get(0)).intValue());
+        setDay(new Integer(dateSplit.get(1)).intValue());
+        setYear(new Integer(dateSplit.get(2)).intValue());
+
     }
 
 
@@ -36,6 +48,10 @@ public class CalendarEvent extends Event {
         secondAlarm = alarm2;
         thirdAlarm = alarm3;
         //this.repeats = repeats;
+    }
+
+    public int getEventLength(){
+        return ends_hours_later;
     }
 
     private void setEnds_hours_later(int totalHours) {

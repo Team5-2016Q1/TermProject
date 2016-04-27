@@ -29,9 +29,6 @@ public class EventViewController extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            //int id = (int)extras.getSerializable("id");
-            //Cursor c = db.getEventRow(id);
-            //makeEvent(c);
             event = (CalendarEvent) extras.getSerializable("Event");
             Log.d("Event received", event.getTitle());
             setUpTextBoxes();
@@ -128,7 +125,6 @@ public class EventViewController extends AppCompatActivity {
         if (!text.getText().toString().isEmpty())
             participants.add(text.getText().toString());
         event.setParticipants(participants);
-        //adding for push
 
         CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxEmail);
         event.setAlarm(checkBox.isChecked());
@@ -139,6 +135,7 @@ public class EventViewController extends AppCompatActivity {
         int alarm = (event.isAlarmSet()? 1 : 0);
         int alarm2 = (event.isSecondAlarmSet()? 1 : 0);
         int alarm3 = (event.isThirdAlarmSet()? 1 : 0);
+
         //follow the Database method inputs passed from event. whatever. Fill out completely.
         db.updateEventRow(event.getDbIDNumber(), event.getTitle(), event.getDate(), event.getTime(), event.getEndTime(),
                 event.getColor(), alarm, alarm2, alarm3, event.getRepeats(), event.getLocation(), event.getParticipantsAsString());

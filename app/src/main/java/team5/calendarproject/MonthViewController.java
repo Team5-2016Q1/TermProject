@@ -283,7 +283,8 @@ public class MonthViewController extends AppCompatActivity {
 
         switch (id){
             case(R.id.action_favorite):
-                intent = new Intent(this,Search.class);
+                intent = new Intent(this, Search.class);
+                intent.putExtra("Events", events);
                 break;
         }
 
