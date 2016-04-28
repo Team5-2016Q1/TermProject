@@ -31,20 +31,9 @@ public class EventList extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            events = new ArrayList<>( (ArrayList)extras.getSerializable("Event") );
+            events = (ArrayList)extras.getSerializable("Event");
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
     @Override
@@ -69,16 +58,6 @@ public class EventList extends AppCompatActivity {
     //Needs to be changed
     public void ListEvents() {
 
-        /*Cursor cursor = db.getAllEventRows();
-
-        if(cursor != null){
-            do{
-                data.add(cursor.getString(1)); //This will be Event's Title
-                idInfo.add(new Integer(cursor.getInt(0)).toString()); //This will be the database RowID
-            }while( cursor.moveToNext() );
-        }
-        cursor.close();*/
-
         ListAdapter theAdapter =
                 new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events);
         ListView theListView = (ListView) findViewById(R.id.listView);
@@ -94,7 +73,6 @@ public class EventList extends AppCompatActivity {
                 startActivity(next);
             }
         });
-
 
     }
 

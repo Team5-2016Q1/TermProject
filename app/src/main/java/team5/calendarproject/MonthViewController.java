@@ -19,7 +19,6 @@ import java.util.Calendar;
 //Android Studio Comment time.
 public class MonthViewController extends AppCompatActivity {
     private Database                    db;
-    private Button                      searchButton;
     private Button                      addEventButton;
     private Button                      viewEventButton;
     private TextView                    nextMonthButton;
@@ -54,15 +53,6 @@ public class MonthViewController extends AppCompatActivity {
                 goToEventView();
             }
         });
-        /*
-        searchButton = (Button) findViewById(R.id.action_favorite);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToSearch();
-            }
-        });
-        */
 
         prevMonthButton = (TextView) findViewById(R.id.month_view_previous_month);
         prevMonthButton.setText("<");
@@ -173,6 +163,7 @@ public class MonthViewController extends AppCompatActivity {
         int     dayNumber;
         View    workingDay;
         GridLayout dayFace;
+        TextView eventText;
 
         //This loop goes over any days of previous month on the first week
         for( ; weekNumber < 6; weekNumber++) {
@@ -184,6 +175,8 @@ public class MonthViewController extends AppCompatActivity {
                     workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
                     dayFace = (GridLayout)workingDay.findViewById(R.id.dayFace);
                     dayFace.setBackgroundColor(Color.LTGRAY);
+                    eventText = (TextView) workingDay.findViewById(R.id.day_event_1);
+                    eventText.setVisibility(View.INVISIBLE);
 
                     TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                     dayName.setText(Integer.toString(daysInPreviousMonth - subtractDay));
@@ -194,17 +187,31 @@ public class MonthViewController extends AppCompatActivity {
 
             for ( ; dayNumber < 7; dayNumber++) {
                 workingDay = findViewById(weekIDs[weekNumber]).findViewById(dayIDs[dayNumber]);
-                dayFace = (GridLayout)workingDay.findViewById(R.id.dayFace);
-                if(nextMonthsDays)
+
+                dayFace = (GridLayout) workingDay.findViewById(R.id.dayFace);
+                eventText = (TextView) workingDay.findViewById(R.id.day_event_1);
+                eventText.setVisibility(View.INVISIBLE);
+
+                if (nextMonthsDays) {
                     dayFace.setBackgroundColor(Color.LTGRAY);
-                else {
-                    for(CalendarEvent event : events)
-                        if (event.getDay() == dayNumber) {
-                            toast("event found");
-                            TextView eventText = (TextView) workingDay.findViewById(R.id.day_event_1);
-                            eventText.setText(event.getTitle());
+                } else {
+                    for(CalendarEvent event : events) {
+                        if( event.getDay() == setupDayNumber
+                                && event.getMonth() == theMonth+1
+                                && event.getYear() == theYear ) {
+
                             eventText.setTextColor(Color.BLUE);
+                            eventText.setVisibility(View.VISIBLE);
+
+                            eventText.setText(String.format("%." + 5 + "s", event.getTitle()));
+
+                            eventText.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View view) {
+                                    startActivity(new Intent(view.getContext(), DayViewController.class).putExtra("Events", events) );
+                                }
+                            });
                         }
+                    }
                     dayFace.setBackgroundColor(Color.WHITE);
                 }
                 TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
@@ -251,21 +258,6 @@ public class MonthViewController extends AppCompatActivity {
                                 participants, c.getString(10), c.getInt(9))
                 );
 
-                //TODO: figure out date parsing from string
-                //if date is on this month
-                //     find weekID / dayID
-                //     workingDay = (View)
-                //     textView event1 = wD.findViewByID
-                //     event1.setVisible(true)
-                //     .setColor(getColor)
-                /*String[] month_day_year = c.getString(2).split("/");
-                int month = new Integer(month_day_year[0]);
-                int day = new Integer(month_day_year[1]);
-                if(c.getString(4).contains("" + theMonth)) {
-
-                    View dayView = findViewById(weekIDs[]).findViewById(dayIDs)
-                }*/
-
                 if (c.isLast()) return;
 
                 c.moveToNext();
@@ -282,7 +274,6 @@ public class MonthViewController extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-
 
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
@@ -319,13 +310,7 @@ public class MonthViewController extends AppCompatActivity {
                 new Intent(this, AddEventController.class)
         );
     }
-    /*
-    public void goToSearch() {
-        startActivity(
-                new Intent(this, Search.class)
-        );
-    }
-    */
+
     private void toast(String description) {
         Toast.makeText(getApplicationContext(), description, Toast.LENGTH_LONG).show();
     }

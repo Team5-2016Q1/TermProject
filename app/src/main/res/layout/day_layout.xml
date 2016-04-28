@@ -27,7 +27,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="event"
             android:id="@+id/day_event_1"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:textColor="#ffffff"
             android:layout_row="1"
             android:layout_column="0" />
