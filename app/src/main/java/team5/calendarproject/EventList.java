@@ -71,6 +71,7 @@ public class EventList extends AppCompatActivity {
 
                 next.putExtra("Event", events.get(position));
                 startActivity(next);
+                finish();
             }
         });
 

@@ -1,6 +1,7 @@
 package team5.calendarproject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by edward on 3/25/16.
@@ -28,12 +29,28 @@ public class CalendarEvent extends Event {
 
         ArrayList<String> dateSplit = new ArrayList<>();
         String[] result = date.split("/");
+
         for (int x = 0; x < result.length; x++)
             dateSplit.add(result[x]);
-
-        setMonth(new Integer(dateSplit.get(0)).intValue());
-        setDay(new Integer(dateSplit.get(1)).intValue());
-        setYear(new Integer(dateSplit.get(2)).intValue());
+        try{
+            setMonth(new Integer(dateSplit.get(0)).intValue());
+        } catch (NumberFormatException e) {
+            setMonth(Calendar.MONTH);
+        }
+        try{
+            setDay(new Integer(dateSplit.get(1)).intValue());
+        } catch (NumberFormatException e) {
+            setMonth(Calendar.DAY_OF_MONTH);
+        } catch (IndexOutOfBoundsException e) {
+            setYear(Calendar.DAY_OF_MONTH);
+        }
+        try{
+            setYear(new Integer(dateSplit.get(2)).intValue());
+        } catch (NumberFormatException e) {
+            setYear(Calendar.YEAR);
+        } catch (IndexOutOfBoundsException e) {
+            setYear(Calendar.YEAR);
+        }
 
     }
 

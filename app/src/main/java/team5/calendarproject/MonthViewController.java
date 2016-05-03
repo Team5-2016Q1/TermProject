@@ -160,10 +160,10 @@ public class MonthViewController extends AppCompatActivity {
         int     subtractDay       = dayShift - 1;
         int     weekNumber        = 0;
         boolean nextMonthsDays    = false;
-        int     dayNumber;
+        int     dayNumber, total_events_in_day;
         View    workingDay;
         GridLayout dayFace;
-        TextView eventText;
+        TextView eventText, eventTextMore;
 
         //This loop goes over any days of previous month on the first week
         for( ; weekNumber < 6; weekNumber++) {
@@ -177,6 +177,8 @@ public class MonthViewController extends AppCompatActivity {
                     dayFace.setBackgroundColor(Color.LTGRAY);
                     eventText = (TextView) workingDay.findViewById(R.id.day_event_1);
                     eventText.setVisibility(View.INVISIBLE);
+                    eventTextMore = (TextView) workingDay.findViewById(R.id.day_event_2);
+                    eventTextMore.setVisibility(View.INVISIBLE);
 
                     TextView dayName = (TextView) workingDay.findViewById(R.id.day_name);
                     dayName.setText(Integer.toString(daysInPreviousMonth - subtractDay));
@@ -191,25 +193,38 @@ public class MonthViewController extends AppCompatActivity {
                 dayFace = (GridLayout) workingDay.findViewById(R.id.dayFace);
                 eventText = (TextView) workingDay.findViewById(R.id.day_event_1);
                 eventText.setVisibility(View.INVISIBLE);
+                eventTextMore = (TextView) workingDay.findViewById(R.id.day_event_1);
+                eventTextMore.setVisibility(View.INVISIBLE);
 
                 if (nextMonthsDays) {
                     dayFace.setBackgroundColor(Color.LTGRAY);
                 } else {
+                    Boolean more_than_one_event = false;
+                    total_events_in_day = 0;
                     for(CalendarEvent event : events) {
                         if( event.getDay() == setupDayNumber
                                 && event.getMonth() == theMonth+1
                                 && event.getYear() == theYear ) {
+                            if(more_than_one_event) {
+                                total_events_in_day++;
+                                eventTextMore.setTextColor(Color.BLUE);
+                                eventTextMore.setVisibility(View.VISIBLE);
+                                eventTextMore.setText(String.format("%." + 5 + "s", "  +" + total_events_in_day));
 
-                            eventText.setTextColor(Color.BLUE);
-                            eventText.setVisibility(View.VISIBLE);
+                            } else {
+                                eventText.setTextColor(Color.BLUE);
+                                eventText.setVisibility(View.VISIBLE);
 
-                            eventText.setText(String.format("%." + 5 + "s", event.getTitle()));
+                                eventText.setText(String.format("%." + 5 + "s", event.getTitle()));
 
-                            eventText.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View view) {
-                                    startActivity(new Intent(view.getContext(), DayViewController.class).putExtra("Events", events) );
-                                }
-                            });
+                                eventText.setOnClickListener(new View.OnClickListener() {
+                                    public void onClick(View view) {
+                                        toast("Day view currently in development");
+                                        //startActivity(new Intent(view.getContext(), DayViewController.class).putExtra("Events", events));
+                                    }
+                                });
+                                more_than_one_event = true;
+                            }
                         }
                     }
                     dayFace.setBackgroundColor(Color.WHITE);
@@ -281,7 +296,7 @@ public class MonthViewController extends AppCompatActivity {
 
         switch (id){
             case(R.id.action_favorite):
-                intent = new Intent(this,Search.class);
+                intent = new Intent(this,Search.class).putExtra("Events", events);
                 break;
         }
 

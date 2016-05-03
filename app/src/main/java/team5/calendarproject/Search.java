@@ -99,10 +99,6 @@ public class Search extends AppCompatActivity {
             }
         }
 
-        if(events.isEmpty()) {
-            return false;
-        }
-
         for (CalendarEvent e : events) {
             // Title
             if (e.getTitle().equalsIgnoreCase(searchValue)) {
@@ -152,7 +148,6 @@ public class Search extends AppCompatActivity {
 
                 }
             });
-
         }
     }
 
